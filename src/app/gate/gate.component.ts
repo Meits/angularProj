@@ -19,14 +19,14 @@ export class GateComponent implements OnInit {
    }
 
   units: Array<object>;
-  services: Array<Source>;
+  sources: Array<Source>;
 
   ngOnInit() {
     this.units = this.unitsService.getUnits();
 
     this.sourcesService.getServices()
     .subscribe((data: Array<Source>) =>  {
-      this.services = data;
+      this.sources = data;
     });
   }
 

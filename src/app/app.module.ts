@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule }   from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,7 +14,9 @@ import { GateComponent } from './gate/gate.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
-import {  MzButtonModule, MzInputModule, MzModalModule, MzSwitchModule, MzSpinnerModule, MzCardModule     } from 'ngx-materialize';
+import {  MzButtonModule, MzInputModule, MzModalModule, MzSwitchModule, MzSpinnerModule, MzCardModule, MzToastModule     } from 'ngx-materialize';
+import { SourcesComponent } from './sources/sources.component';
+import { ModalSourcesComponent } from './modal-sources/modal-sources.component';
 
 
 @NgModule({
@@ -23,7 +26,9 @@ import {  MzButtonModule, MzInputModule, MzModalModule, MzSwitchModule, MzSpinne
     UnitsComponent,
     DashboardComponent,
     ArchivesComponent,
-    GateComponent
+    GateComponent,
+    SourcesComponent,
+    ModalSourcesComponent
   ],
   imports: [
     
@@ -31,15 +36,17 @@ import {  MzButtonModule, MzInputModule, MzModalModule, MzSwitchModule, MzSpinne
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
 
     MzButtonModule,
     MzInputModule ,
     MzModalModule,
     MzSwitchModule ,
     MzSpinnerModule,
-    MzCardModule
+    MzCardModule,
+    MzToastModule 
   ],
-  providers: [],
+  entryComponents: [ModalSourcesComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

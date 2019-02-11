@@ -5,6 +5,7 @@ import { GateComponent } from './gate/gate.component';
 import { UsersComponent } from './users/users.component';
 import { UnitsComponent } from './units/units.component';
 import { ArchivesComponent } from './archives/archives.component';
+import { SourcesComponent } from './sources/sources.component';
 
 const routes: Routes = [
   {
@@ -26,9 +27,13 @@ const routes: Routes = [
     component: UnitsComponent
   },
   {
+    path: 'sources',
+    component: SourcesComponent
+  },
+  {
     path: 'archives',
     component: ArchivesComponent
-  },
+  }
 
 ];
 

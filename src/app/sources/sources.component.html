@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="flex-block content-between items-center header-group">
+      <h4>Источники</h4>
+      <button class="waves-effect waves-light btn" mz-button (click)="bottomSources.openModal()">Новый источник</button>
+      <button class="waves-effect waves-light btn" mz-button (click)="openSourceModal()">Новый источник</button>
+      <button mz-button (click)="showToast()">Toast</button>
+  </div>   
+
+  <table class="highlight">
+      <thead>
+      <tr>
+          <th>Заголовок</th>
+          <th>Действие</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let source of sources">
+          <td>{{source.title}}</td>
+          <td >
+              <a (click)="editSource(source._id)" class="waves-effect waves-light btn amber darken-1" >Редактировать</a>
+              <a (click)="deleteSource(source._id)" class="waves-effect waves-light btn red">Удалить</a>
+          </td>
+      </tr>
+
+      </tbody>
+  </table>
+
+  <mz-modal #bottomSources>
+    <mz-modal-header>
+      <h4>Новый источник {{(source.title) ? " - " + source.title : ""}}</h4>
+    </mz-modal-header>
+    <mz-modal-content>
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input name="title"  [(ngModel)]="source.title" type="text" class="validate">
+                        <label for="title">Заголовок</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </mz-modal-content>
+    <mz-modal-footer>
+        <button (click)="saveSource()" class="btn waves-effect waves-light" type="submit" name="action">Сохранить
+            <i class="material-icons right">send</i>
+        </button>
+        <button mz-button [flat]="true" mz-modal-close>Отмена</button>
+    </mz-modal-footer>
+  </mz-modal>
+</div>
