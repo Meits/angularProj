@@ -38,17 +38,22 @@ export class SourcesComponent implements OnInit {
     console.log(id);
   }
 
-  showToast() {
-    this.toastService.show('I am a toast!', 4000, 'green', () => alert('Toast has been dismissed'));
-  }
-  saveSource () {
-    this.sourcesService.saveSource(this.source).subscribe(source => this.sources.push(source));
-    this.toastService.show('I am a toast!', 4000);
-    //console.log(this.toastService);
-  }
+
+  // saveSource () {
+  //   this.sourcesService.saveSource(this.source).subscribe((source) => {
+  //     this.sources.push(source);
+  //     this.toastService.show('I am a toast!', 4000);
+  //     this.clearSource();
+  //   });
+  // }
+
+  // private clearSource () {
+  //   this.source.title = "";
+  //   this.source._id = "";
+  // }
 
   public openSourceModal() {
-    this.modalService.open(ModalSourcesComponent);
+    this.modalService.open(ModalSourcesComponent,{sources : this.sources});
   }
 
 }

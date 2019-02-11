@@ -1,12 +1,24 @@
-<mz-modal [fixedFooter]="true">
+<mz-modal #bottomSources>
   <mz-modal-header>
-    <h4>Modal Title</h4>
+    <h4>Новый источник {{(source.title) ? " - " + source.title : ""}}</h4>
   </mz-modal-header>
   <mz-modal-content>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      <div class="row">
+          <form class="col s12">
+              <div class="row">
+                  <div class="input-field col s12">
+                      <input name="title"  [(ngModel)]="source.title" type="text" class="validate">
+                      <label for="title">Заголовок</label>
+                  </div>
+              </div>
+          </form>
+      </div>
   </mz-modal-content>
   <mz-modal-footer>
-    <button mz-button [flat]="true" mz-modal-close>Disagree</button>
-    <button mz-button [flat]="true" mz-modal-close>Agree</button>
+      <button (click)="saveSource()" class="btn waves-effect waves-light" type="submit" name="action">Сохранить
+          <i class="material-icons right">send</i>
+      </button>
+      <button mz-button [flat]="true" mz-modal-close>Отмена</button>
   </mz-modal-footer>
 </mz-modal>
+
