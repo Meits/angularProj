@@ -32,10 +32,52 @@ export class SourcesComponent implements OnInit {
   }
 
   editSource (id) {
-    console.log(id);
+    this.source = this.getSource(id);
+    this.modalService.open(ModalSourcesComponent,{sources : this.sources, source : this.source});
+  }
+  getSource(id: any): Source {
+    let result : Source = {
+      _id : "",
+      title : "",
+      updated_at : "",
+    };
+    this.sources.forEach(function(item : Source) {
+        if(item._id == id) {
+          result = item;
+        }
+    });
+
+    return result;
   }
   deleteSource (id) {
-    console.log(id);
+    
+    let idDelete = null;
+    let result : Source = {
+      _id : "",
+      title : "",
+      updated_at : "",
+    };
+
+    if(confirm("Удалить?")) {
+      this.sources.forEach(function(item : Source, key) {
+        if(item._id == id) {
+          idDelete = key;
+          result = item;
+        }
+      });
+      
+      if(idDelete) {
+        this.sourcesService.deleteSource(result).subscribe(() => {
+          this.sources.splice(idDelete, 1);
+          this.toastService.show('Deleted', 4000);
+        });
+      }
+    }
+    
+    
+    // if(this.deleteSource(id)) {
+    //   this.toastService.show('Deleted', 4000);
+    // }
   }
 
 

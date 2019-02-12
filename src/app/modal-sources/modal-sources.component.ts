@@ -31,6 +31,16 @@ export class ModalSourcesComponent extends MzBaseModal  implements OnInit {
       this.modalComponent.closeModal();
     });
   }
+  updateSource () {
+    console.log(this.source);
+    this.sourcesService.updateSource(this.source).subscribe((source) => {
+      // this.sources.push(source);
+      // this.toastService.show('I am a toast!', 4000);
+      // this.clearSource();
+
+      this.modalComponent.closeModal();
+    });
+  }
 
   private clearSource () {
     this.source.title = "";

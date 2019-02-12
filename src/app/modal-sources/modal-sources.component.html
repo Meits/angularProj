@@ -15,7 +15,7 @@
       </div>
   </mz-modal-content>
   <mz-modal-footer>
-      <button (click)="saveSource()" class="btn waves-effect waves-light" type="submit" name="action">Сохранить
+      <button (click)="source._id ? updateSource()  : saveSource()" class="btn waves-effect waves-light" type="submit" name="action">Сохранить
           <i class="material-icons right">send</i>
       </button>
       <button mz-button [flat]="true" mz-modal-close>Отмена</button>

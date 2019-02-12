@@ -5,16 +5,19 @@ import { Source } from './models/source';
 @Injectable({
   providedIn: 'root'
 })
-/*
-export interface ISource {
-  title: string;
-  _id: string;
-}
-*/
+
 export class SourcesService {
+  
+  deleteSource(source: Source): any {
+    return this.http.delete('http://localhost:8000/sources/' + source._id );
+  }
   
 
   constructor(private http : HttpClient) { }
+
+  updateSource(source: Source): any {
+    return this.http.put<Source>('http://localhost:8000/sources/' + source._id, source );
+  }
 
   saveSource(source: Source) {
 
@@ -28,20 +31,6 @@ export class SourcesService {
   }
 
   getServices () {
-
     return this.http.get<Array<Source>>('http://localhost:8000/sources');
-
-    /*return [
-        {
-          _id : "223234234",
-          name : "OLX",
-
-        },
-        {
-          _id : "345345345",
-          name : "Instagramm",
-
-        },
-    ];*/
   }
 }

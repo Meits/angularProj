@@ -18,40 +18,20 @@
             </div>
             <div class="row">
                 <div class="input-field col s12 m12 l6">
-                    
-                    <select style="display: block" name="source_id">
+                    <mz-select-container>
+                    <select mz-select name="source_id">
                         <option value="" disabled selected>Подразделения</option>
-                        <option *ngFor="let unit of units" [value]="unit._id" >
-                            <span class="lead__source-icon">
-                                <svg 
-                                    :class=""
-                                    style="border-color: #26a69a;"
-                                    fill="#26a69a" 
-                                    width="20px" 
-                                    height="20px"
-                                ><use :xlink:href="'#unit-icon-' + source.id"></use></svg>
-                            </span>
-                            <span class="lead__source-title"></span>{{unit.name}}</option>
+                        <option *ngFor="let unit of units" [value]="unit._id" >{{unit.name}}</option>
                     </select>
-
+                    </mz-select-container>
                 </div>
                 <div class="input-field col s12 m12 l6">
-                    
-                    <select  style="display: block"  name="unit_id">
+                    <mz-select-container>
+                    <select mz-select  name="unit_id">
                         <option value="" disabled selected>Источник</option>
-                        <option *ngFor="let source of sources" [value]="sources._id" >
-                            <span class="lead__source-icon">
-                                <svg 
-                                    :class=""
-                                    style="border-color: #26a69a;"
-                                    fill="#26a69a" 
-                                    width="20px" 
-                                    height="20px"
-                                ><use :xlink:href="'#unit-icon-' + source.id"></use></svg>
-                            </span>
-                            <span class="lead__source-title"></span>{{source.title}}</option>
+                        <option *ngFor="let source of sources" [value]="sources._id" >{{source.title}}</option>
                     </select>
-                    
+                    </mz-select-container>
                 </div>
             </div>
             <div class="row">
