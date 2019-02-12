@@ -14,7 +14,7 @@ export class ModalSourcesComponent extends MzBaseModal  implements OnInit {
     super();
   }
 
-  source: Source = {
+  @Input() source: Source = {
     _id: "",
     title : "",
     updated_at : "",
@@ -25,7 +25,7 @@ export class ModalSourcesComponent extends MzBaseModal  implements OnInit {
   saveSource () {
     this.sourcesService.saveSource(this.source).subscribe((source) => {
       this.sources.push(source);
-      this.toastService.show('I am a toast!', 4000);
+      this.toastService.show('Saved', 4000);
       this.clearSource();
 
       this.modalComponent.closeModal();
@@ -34,11 +34,8 @@ export class ModalSourcesComponent extends MzBaseModal  implements OnInit {
   updateSource () {
     console.log(this.source);
     this.sourcesService.updateSource(this.source).subscribe((source) => {
-      // this.sources.push(source);
-      // this.toastService.show('I am a toast!', 4000);
-      // this.clearSource();
-
-      this.modalComponent.closeModal();
+        this.toastService.show('Updated', 4000);
+        this.modalComponent.closeModal();
     });
   }
 
