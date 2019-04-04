@@ -73,26 +73,8 @@ export class SourcesComponent implements OnInit {
         });
       }
     }
-    
-    
-    // if(this.deleteSource(id)) {
-    //   this.toastService.show('Deleted', 4000);
-    // }
+
   }
-
-
-  // saveSource () {
-  //   this.sourcesService.saveSource(this.source).subscribe((source) => {
-  //     this.sources.push(source);
-  //     this.toastService.show('I am a toast!', 4000);
-  //     this.clearSource();
-  //   });
-  // }
-
-  // private clearSource () {
-  //   this.source.title = "";
-  //   this.source._id = "";
-  // }
 
   public openSourceModal() {
     this.modalService.open(ModalSourcesComponent,{sources : this.sources});
