@@ -1,5 +1,6 @@
 export interface Source {
-    _id: string;
+    id: Number;
     title: string;
-    updated_at : string
+    updated_at : string;
+    created_at : string;
   }

@@ -19,9 +19,10 @@ export class SourcesComponent implements OnInit {
   sources: Array<Source>;
 
   source: Source = {
-    _id: "",
+    id: 0,
     title : "",
     updated_at : "",
+    created_at : "",
   };
 
   ngOnInit() {
@@ -37,12 +38,13 @@ export class SourcesComponent implements OnInit {
   }
   getSource(id: any): Source {
     let result : Source = {
-      _id : "",
+      id : 0,
       title : "",
       updated_at : "",
+      created_at : "",
     };
     this.sources.forEach(function(item : Source) {
-        if(item._id == id) {
+        if(item.id == id) {
           result = item;
         }
     });
@@ -53,14 +55,15 @@ export class SourcesComponent implements OnInit {
     
     let idDelete = null;
     let result : Source = {
-      _id : "",
+      id : 0,
       title : "",
       updated_at : "",
+      created_at : "",
     };
 
     if(confirm("Удалить?")) {
       this.sources.forEach(function(item : Source, key) {
-        if(item._id == id) {
+        if(item.id == id) {
           idDelete = key;
           result = item;
         }

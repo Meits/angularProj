@@ -9,28 +9,32 @@ import { Source } from './models/source';
 export class SourcesService {
   
   deleteSource(source: Source): any {
-    return this.http.delete('http://localhost:8000/sources/' + source._id );
+    return this.http.delete('http://laravelmod.loc/sources/' + source.id );
   }
   
 
   constructor(private http : HttpClient) { }
 
   updateSource(source: Source): any {
-    return this.http.put<Source>('http://localhost:8000/sources/' + source._id, source );
+    return this.http.put<Source>('http://laravelmod.loc/sources/' + source.id, source );
   }
 
   saveSource(source: Source) {
 
-    let httpHeaders = new HttpHeaders()
+    /*let httpHeaders = new HttpHeaders()
      .set('Content-Type', 'application/json')
      .set('Cache-Control', 'no-cache'); 
     let options = {
       headers: httpHeaders
-    }; 
-    return this.http.post<Source>('http://localhost:8000/sources', source,options );
+    }; */
+
+    let options = {
+      
+    };
+    return this.http.post<Source>('http://laravelmod.loc/admin/sources', source, options );
   }
 
   getServices () {
-    return this.http.get<Array<Source>>('http://localhost:8000/sources');
+    return this.http.get<Array<Source>>('http://laravelmod.loc/api/admin/sources');
   }
 }

@@ -15,8 +15,9 @@ export class ModalSourcesComponent extends MzBaseModal  implements OnInit {
   }
 
   @Input() source: Source = {
-    _id: "",
+    id: 0,
     title : "",
+    created_at : "",
     updated_at : "",
   };
 
@@ -41,7 +42,7 @@ export class ModalSourcesComponent extends MzBaseModal  implements OnInit {
 
   private clearSource () {
     this.source.title = "";
-    this.source._id = "";
+    this.source.id = 0;
   }
 
 
