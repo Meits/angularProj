@@ -16,8 +16,8 @@
       <tr *ngFor="let source of sources">
           <td>{{source.title}}</td>
           <td >
-              <a (click)="editSource(source._id)" class="waves-effect waves-light btn amber darken-1" >Редактировать</a>
-              <a (click)="deleteSource(source._id)" class="waves-effect waves-light btn red">Удалить</a>
+              <a (click)="editSource(source.id)" class="waves-effect waves-light btn amber darken-1" >Редактировать</a>
+              <a (click)="deleteSource(source.id)" class="waves-effect waves-light btn red">Удалить</a>
           </td>
       </tr>
 
