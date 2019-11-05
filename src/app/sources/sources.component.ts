@@ -14,16 +14,17 @@ export class SourcesComponent implements OnInit {
  
 
   constructor(private sourcesService : SourcesService, private modalService: MzModalService, private toastService: MzToastService) {
+    this.source = {
+      id: 0,
+      title : "",
+      updated_at : "",
+      created_at : "",
+    }
   }
 
   sources: Array<Source>;
 
-  source: Source = {
-    id: 0,
-    title : "",
-    updated_at : "",
-    created_at : "",
-  };
+  source: Source;
 
   ngOnInit() {
     this.sourcesService.getServices()

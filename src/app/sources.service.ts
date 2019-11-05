@@ -21,17 +21,14 @@ export class SourcesService {
 
   saveSource(source: Source) {
 
-    /*let httpHeaders = new HttpHeaders()
+    let httpHeaders = new HttpHeaders()
      .set('Content-Type', 'application/json')
      .set('Cache-Control', 'no-cache'); 
     let options = {
-      headers: httpHeaders
-    }; */
-
-    let options = {
-      
-    };
-    return this.http.post<Source>('http://laravelmod.loc/api/admin/sources/', source, options );
+      //headers: httpHeaders
+    }; 
+    
+    return this.http.post<Source>('http://laravelmod.loc/api/admin/sources', source, options );
   }
 
   getServices () {

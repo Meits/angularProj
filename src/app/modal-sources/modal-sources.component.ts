@@ -25,6 +25,7 @@ export class ModalSourcesComponent extends MzBaseModal  implements OnInit {
 
   saveSource () {
     this.sourcesService.saveSource(this.source).subscribe((source) => {
+
       this.sources.push(source);
       this.toastService.show('Saved', 4000);
       this.clearSource();
