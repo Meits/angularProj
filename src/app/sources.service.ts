@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Source } from './models/source';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +10,14 @@ import { Source } from './models/source';
 export class SourcesService {
   
   deleteSource(source: Source): any {
-    return this.http.delete('http://laravelmod.loc/api/admin/sources/' + source.id );
+    return this.http.delete(environment.apiUrl + 'api/admin/sources/' + source.id );
   }
   
 
   constructor(private http : HttpClient) { }
 
   updateSource(source: Source): any {
-    return this.http.put<Source>('http://laravelmod.loc/api/admin/sources/' + source.id, source );
+    return this.http.put<Source>(environment.apiUrl + 'api/admin/sources/' + source.id, source );
   }
 
   saveSource(source: Source) {
@@ -31,10 +32,10 @@ export class SourcesService {
     let options = {
       
     };
-    return this.http.post<Source>('http://laravelmod.loc/api/admin/sources/', source, options );
+    return this.http.post<Source>(environment.apiUrl + 'api/admin/sources/', source, options );
   }
 
   getServices () {
-    return this.http.get<Array<Source>>('http://laravelmod.loc/api/admin/sources');
+    return this.http.get<Array<Source>>(environment.apiUrl + 'api/admin/sources');
   }
 }
