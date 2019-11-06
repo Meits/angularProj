@@ -12,7 +12,8 @@
       </tr>
       </thead>
 
-      <tbody>
+      <tbody *ngIf="sources">
+        
       <tr *ngFor="let source of sources">
           <td>{{source.title}}</td>
           <td >
@@ -26,13 +27,13 @@
 
   <mz-modal #bottomSources>
     <mz-modal-header>
-      <h4>Новый источник {{(source.title) ? " - " + source.title : ""}}</h4>
+      <h4>Новый источник </h4>
     </mz-modal-header>
     <mz-modal-content>
         <div class="row">
             <form class="col s12">
                 <div class="row">
-                    <div class="input-field col s12">
+                    <div *ngIf="source" class="input-field col s12">
                         <input name="title"  [(ngModel)]="source.title" type="text" class="validate">
                         <label for="title">Заголовок</label>
                     </div>

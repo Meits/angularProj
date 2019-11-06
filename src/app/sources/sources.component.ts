@@ -14,16 +14,12 @@ export class SourcesComponent implements OnInit {
  
 
   constructor(private sourcesService : SourcesService, private modalService: MzModalService, private toastService: MzToastService) {
+    
   }
 
   sources: Array<Source>;
 
-  source: Source = {
-    id: 0,
-    title : "",
-    updated_at : "",
-    created_at : "",
-  };
+  source: Source;
 
   ngOnInit() {
     this.sourcesService.getServices()
@@ -33,33 +29,14 @@ export class SourcesComponent implements OnInit {
   }
 
   editSource (id) {
-    this.source = this.getSource(id);
+    this.source = this.sourcesService.getService(id, this.sources);
     this.modalService.open(ModalSourcesComponent,{sources : this.sources, source : this.source});
   }
-  getSource(id: any): Source {
-    let result : Source = {
-      id : 0,
-      title : "",
-      updated_at : "",
-      created_at : "",
-    };
-    this.sources.forEach(function(item : Source) {
-        if(item.id == id) {
-          result = item;
-        }
-    });
-
-    return result;
-  }
+  
   deleteSource (id) {
     
     let idDelete = null;
-    let result : Source = {
-      id : 0,
-      title : "",
-      updated_at : "",
-      created_at : "",
-    };
+    let result : Source;
 
     if(confirm("Удалить?")) {
       this.sources.forEach(function(item : Source, key) {
