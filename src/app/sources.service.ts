@@ -8,8 +8,12 @@ import { environment } from 'src/environments/environment';
 })
 
 export class SourcesService {
+
+  sources: Array<Source>;
   
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient) {
+    this.getServices();
+   }
 
   deleteSource(source: Source): any {
     return this.http.delete(environment.apiUrl + 'api/admin/sources/' + source.id );
@@ -25,7 +29,9 @@ export class SourcesService {
   }
 
   getServices () {
-    return this.http.get<Array<Source>>(environment.apiUrl + 'api/admin/sources');
+    this.http.get<Array<Source>>(environment.apiUrl + 'api/admin/sources').subscribe((data: Array<Source>) =>  {
+      this.sources = data;
+    });;
   }
 
   getService(id: any, sources : Array<Source>): Source {
@@ -33,6 +39,17 @@ export class SourcesService {
     sources.forEach(function(item : Source) {
         if(item.id == id) {
           result = {...item};
+        }
+    });
+
+    return result;
+  }
+
+  getServiceIndex(id: any, sources : Array<Source>): number {
+    let result : number;
+    sources.forEach(function(item : Source, index : number) {
+        if(item.id == id) {
+          result = index;
         }
     });
 

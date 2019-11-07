@@ -6,6 +6,8 @@ import { UsersComponent } from './users/users.component';
 import { UnitsComponent } from './units/units.component';
 import { ArchivesComponent } from './archives/archives.component';
 import { SourcesComponent } from './sources/sources.component';
+import { AuthGuard } from './_guards/auth.guard';
+import { LoginComponent } from './client/login/login.component';
 
 const routes: Routes = [
   {
@@ -15,7 +17,8 @@ const routes: Routes = [
   
   {
     path: 'gate',
-    component: GateComponent
+    component: GateComponent,
+    canActivate: [AuthGuard]
   },
   
   {
@@ -33,6 +36,10 @@ const routes: Routes = [
   {
     path: 'archives',
     component: ArchivesComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   }
 
 ];

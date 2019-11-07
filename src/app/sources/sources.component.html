@@ -24,28 +24,4 @@
 
       </tbody>
   </table>
-
-  <mz-modal #bottomSources>
-    <mz-modal-header>
-      <h4>Новый источник </h4>
-    </mz-modal-header>
-    <mz-modal-content>
-        <div class="row">
-            <form class="col s12">
-                <div class="row">
-                    <div *ngIf="source" class="input-field col s12">
-                        <input name="title"  [(ngModel)]="source.title" type="text" class="validate">
-                        <label for="title">Заголовок</label>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </mz-modal-content>
-    <mz-modal-footer>
-        <button (click)="saveSource()" class="btn waves-effect waves-light" type="submit" name="action">Сохранить
-            <i class="material-icons right">send</i>
-        </button>
-        <button mz-button [flat]="true" mz-modal-close>Отмена</button>
-    </mz-modal-footer>
-  </mz-modal>
 </div>

@@ -1,25 +1,45 @@
-<div class="container small-wrap">
-  <div class="flex-block content-between items-center header-group">
-    <h4>Вход</h4>
-  </div>
 
-  <div class="row">
-    <form class="col s12">
-      <div class="row">
-        <div class="input-field col s12">
-          <input name="email"  type="text" class="validate">
-          <label for="email">Email</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input name="password"  type="password" class="validate">
-          <label for="password">Password</label>
-        </div>
-      </div>
-      <button class="waves-effect waves-light btn" mz-button >Submit</button>
+<div class="form-centered">
+  <div class="container login-form">
+    <div class="login-card">    
+        <div class="row">
+            <div class="col s12">
+                <h5 class="login-title">Log In</h5>
+            </div>
 
-    </form>
+
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              
+                <div class="input-field col s12">
+                    <input formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" type="text" class="validate" />
+                    <label for="email">Email</label>
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                        <div *ngIf="f.email.errors.required">Email is required</div>
+                    </div>
+                  
+                </div>
+
+                <div class="input-field col s12">
+                    <input formControlName="password" type="password" class="validate" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                    <label for="password">Password</label>
+                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                        <div *ngIf="f.password.errors.required">Password is required</div>
+                    </div>
+                </div>
+
+                <div class="input-field col s12">
+                    <div class="login-button">
+                        <button class="btn waves-effect waves-light" type="submit" [disabled]="loading">Submit<i class="material-icons right">send</i></button>
+                        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                    </div>
+                    
+                </div>
+
+                <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+            </form>
+        </div>
+    </div>
   </div>
 </div>
 

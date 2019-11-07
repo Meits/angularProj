@@ -12,20 +12,13 @@ import { ModalSourcesComponent } from '../modal-sources/modal-sources.component'
 })
 export class SourcesComponent implements OnInit {
  
-
-  constructor(private sourcesService : SourcesService, private modalService: MzModalService, private toastService: MzToastService) {
-    
-  }
+  constructor(private sourcesService : SourcesService, private modalService: MzModalService, private toastService: MzToastService) {}
 
   sources: Array<Source>;
-
   source: Source;
 
   ngOnInit() {
-    this.sourcesService.getServices()
-    .subscribe((data: Array<Source>) =>  {
-      this.sources = data;
-    });
+    this.sources = this.sourcesService.sources;
   }
 
   editSource (id) {
@@ -34,21 +27,11 @@ export class SourcesComponent implements OnInit {
   }
   
   deleteSource (id) {
-    
-    let idDelete = null;
-    let result : Source;
-
     if(confirm("Удалить?")) {
-      this.sources.forEach(function(item : Source, key) {
-        if(item.id == id) {
-          idDelete = key;
-          result = item;
-        }
-      });
-      
-      if(idDelete) {
-        this.sourcesService.deleteSource(result).subscribe(() => {
-          this.sources.splice(idDelete, 1);
+      let index = this.sourcesService.getServiceIndex(id, this.sources);
+      if(index) {
+        this.sourcesService.deleteSource(this.sources[index]).subscribe(() => {
+          this.sources.splice(index, 1);
           this.toastService.show('Deleted', 4000);
         });
       }

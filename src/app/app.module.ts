@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule }   from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule  }   from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +17,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {  MzButtonModule, MzInputModule, MzModalModule, MzSwitchModule, MzSpinnerModule, MzCardModule, MzToastModule,MzSelectModule      } from 'ngx-materialize';
 import { SourcesComponent } from './sources/sources.component';
 import { ModalSourcesComponent } from './modal-sources/modal-sources.component';
+import { SourcesService } from './sources.service';
+import { LoginComponent } from './client/login/login.component';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { ErrorInterceptor } from './helpers/error.interceptor';
 
 
 @NgModule({
@@ -28,7 +32,8 @@ import { ModalSourcesComponent } from './modal-sources/modal-sources.component';
     ArchivesComponent,
     GateComponent,
     SourcesComponent,
-    ModalSourcesComponent
+    ModalSourcesComponent,
+    LoginComponent
   ],
   imports: [
     
@@ -37,6 +42,7 @@ import { ModalSourcesComponent } from './modal-sources/modal-sources.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
 
     MzButtonModule,
     MzInputModule ,
@@ -48,6 +54,11 @@ import { ModalSourcesComponent } from './modal-sources/modal-sources.component';
     MzSelectModule
   ],
   entryComponents: [ModalSourcesComponent],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers : [
+    SourcesService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ]
 })
 export class AppModule { }
