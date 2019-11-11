@@ -12,7 +12,7 @@ export class SourcesService {
   sources: Array<Source>;
   
   constructor(private http : HttpClient) {
-    this.getServices();
+    //this.getServices();
    }
 
   deleteSource(source: Source): any {
@@ -29,9 +29,7 @@ export class SourcesService {
   }
 
   getServices () {
-    this.http.get<Array<Source>>(environment.apiUrl + 'api/admin/sources').subscribe((data: Array<Source>) =>  {
-      this.sources = data;
-    });;
+    return this.http.get<Array<Source>>(environment.apiUrl + 'api/admin/sources');
   }
 
   getService(id: any, sources : Array<Source>): Source {

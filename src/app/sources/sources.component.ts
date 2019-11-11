@@ -18,7 +18,10 @@ export class SourcesComponent implements OnInit {
   source: Source;
 
   ngOnInit() {
-    this.sources = this.sourcesService.sources;
+    this.sourcesService.getServices()
+    .subscribe((data: Array<Source>) =>  {
+      this.sources = data;
+    });
   }
 
   editSource (id) {

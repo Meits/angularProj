@@ -1,25 +1,62 @@
+
+
+
 <div class="container">
     <div class="row">
         <div class="col s12">
             <h4 class="h4-title">Новый Лид</h4>
         </div>
-    </div>                
+    </div>
+    
+    
     <div class="row">
-        <form action="" method="post" class="col s12">
+            <div class=" col s12 m6 l6">
+                <div>LeadOrTask</div>
+                <div class="flex-block">
+                        <mz-radio-button-container>
+                                <input mz-radio-button
+                                  [label]="'Лид'"
+                                  id="is_lead-1"
+                                  name="is_lead"
+                                  [(ngModel)]="isLead"
+                                
+                                  [value]="true"
+                                  type="radio">
+                              </mz-radio-button-container>
+                            
+                              <mz-radio-button-container>
+                                <input mz-radio-button
+                                  [label]="'Задача'"
+                                  id="is_lead-2"
+                                  name="is_lead"
+                                  [(ngModel)]="isLead"
+                                  [value]="false"
+                                  type="radio">
+                              </mz-radio-button-container>
+
+
+                
+                </div>
+            </div>
+        </div>
+
+    <div class="row">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="col s12">
+
             <div class="row">
                 <div class="input-field col s12 m12 l6">
-                    <input name="link" id="link" type="text" class="validate">
+                    <input formControlName="link"  type="text" class="validate">
                     <label for="link">Ссылка</label>
                 </div>
                 <div class="input-field col s12 m12 l6">
-                    <input name="phone" id="phone" type="text" class="validate">
+                    <input formControlName="phone"  type="text" class="validate">
                     <label for="phone">Телефон</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12 m12 l6">
                     <mz-select-container>
-                    <select mz-select name="source_id">
+                    <select mz-select formControlName="source_id" >
                         <option value="" disabled selected>Подразделения</option>
                         <option *ngFor="let unit of units" [value]="unit._id" >{{unit.name}}</option>
                     </select>
@@ -27,33 +64,118 @@
                 </div>
                 <div class="input-field col s12 m12 l6">
                     <mz-select-container>
-                    <select mz-select  name="unit_id">
+                    <select mz-select  formControlName="unit_id" >
                         <option value="" disabled selected>Источник</option>
                         <option *ngFor="let source of sources" [value]="sources._id" >{{source.title}}</option>
                     </select>
                     </mz-select-container>
                 </div>
             </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <div>Заказ оформлен?</div>
+            
+            <div *ngIf="isLead;else isTask" class="">
+                <div class="col s12 m4 l4">
+                    <div>newLeadProcess</div>
                     <div class="flex-block">                               
-                        <label class="input-checkbox">
-                            <input  name="is_processed" type="radio" value="0" />
-                            <span>Нет</span>
-                        </label>
-        
-                        <label class="input-checkbox">
-                            <input   name="is_processed" type="radio" value="1" />
-                            <span>Да</span>
-                        </label>                               
-                    </div>                             
-                  
+                    
+                            <mz-radio-button-container>
+                                    <input mz-radio-button
+                                      [label]="'Нет'"
+                                      id="is_processed-1"
+                                      name="is_processed"
+                                      checked="checked"
+                                      formControlName="is_processed"
+                                      checked="checked"
+                                      value="0"
+                                      type="radio">
+                                  </mz-radio-button-container>
+                                
+                                  <mz-radio-button-container>
+                                    <input mz-radio-button
+                                      [label]="'Да'"
+                                      id="is_processed-2"
+                                      name="is_processed"
+                                      formControlName="is_processed"
+                                      
+                                      value="1"
+                                      type="radio">
+                                  </mz-radio-button-container>
+
+                                                      
+                    </div>
+                </div>
+                <div class="col s12 m4 l4">
+                    <div>newLeadAddSale</div>
+                    <div class="flex-block">
+
+                            <mz-radio-button-container>
+                                    <input mz-radio-button
+                                      [label]="'Нет'"
+                                      id="is_add_sale-1"
+                                      name="is_add_sale"
+                                      checked="checked"
+                                      formControlName="is_add_sale"
+                                      checked="checked"
+                                      value="0"
+                                      type="radio">
+                                  </mz-radio-button-container>
+                                
+                                  <mz-radio-button-container>
+                                    <input mz-radio-button
+                                      [label]="'Да'"
+                                      id="is_add_sale-2"
+                                      name="is_add_sale"
+                                      formControlName="is_add_sale"
+                                      value="1"
+                                      type="radio">
+                                  </mz-radio-button-container>
+                    </div>
+                </div>
+                <div class=" col s12 m4 l4">
+                    <div>newLeadExpress</div>
+                    <div class="flex-block">
+
+
+                            <mz-radio-button-container>
+                                    <input mz-radio-button
+                                      [label]="'Нет'"
+                                      id="is_express_delivery-1"
+                                      name="is_express_delivery"
+                                      checked="checked"
+                                      formControlName="is_express_delivery"
+                                      checked="checked"
+                                      value="0"
+                                      type="radio">
+                                  </mz-radio-button-container>
+                                
+                                  <mz-radio-button-container>
+                                    <input mz-radio-button
+                                      [label]="'Да'"
+                                      id="is_express_delivery-2"
+                                      name="is_express_delivery"
+                                      formControlName="is_express_delivery"
+                                      value="1"
+                                      type="radio">
+                                  </mz-radio-button-container>
+
+                    
+                    </div>
                 </div>
             </div>
+            <ng-template class="row" #isTask>
+                <div class="input-field col s12 m12 l6">
+                <mz-select-container>
+                    <select mz-select formControlName="user_id" >
+                        <option value="" selected>newLeadChoose</option>
+                        <option  >users</option>
+                    </select>
+                </mz-select-container>
+
+                <label>newLeadUser</label>
+                </div>
+            </ng-template>
             <div class="row">
                 <div class="input-field col s12">
-                    <textarea v-model="text" id="text" name="text" class="materialize-textarea"></textarea>
+                    <textarea formControlName="user_id" id="text"  class="materialize-textarea"></textarea>
                     <label for="text">Комментарий</label>
                 </div>
             </div>

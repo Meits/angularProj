@@ -14,7 +14,7 @@ import { GateComponent } from './gate/gate.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
-import {  MzButtonModule, MzInputModule, MzModalModule, MzSwitchModule, MzSpinnerModule, MzCardModule, MzToastModule,MzSelectModule      } from 'ngx-materialize';
+import {  MzButtonModule, MzInputModule, MzModalModule, MzSwitchModule, MzSpinnerModule, MzCardModule, MzToastModule,MzSelectModule, MzRadioButtonModule      } from 'ngx-materialize';
 import { SourcesComponent } from './sources/sources.component';
 import { ModalSourcesComponent } from './modal-sources/modal-sources.component';
 import { SourcesService } from './sources.service';
@@ -51,7 +51,8 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
     MzSpinnerModule,
     MzCardModule,
     MzToastModule ,
-    MzSelectModule
+    MzSelectModule,
+    MzRadioButtonModule
   ],
   entryComponents: [ModalSourcesComponent],
   bootstrap: [AppComponent],
