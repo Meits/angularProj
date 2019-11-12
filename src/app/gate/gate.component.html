@@ -47,10 +47,12 @@
                 <div class="input-field col s12 m12 l6">
                     <input formControlName="link"  type="text" class="validate">
                     <label for="link">Ссылка</label>
+                    <span *ngIf="f.link.hasError('mustMatch')">Ссылка или телефон </span>
                 </div>
                 <div class="input-field col s12 m12 l6">
                     <input formControlName="phone"  type="text" class="validate">
                     <label for="phone">Телефон</label>
+                    <span *ngIf="f.phone.hasError('mustMatch')">Ссылка или телефон</span>
                 </div>
             </div>
             <div class="row">
