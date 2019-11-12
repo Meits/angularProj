@@ -3,7 +3,7 @@ import { UnitsService } from '../units.service';
 import { Services } from '@angular/core/src/view';
 import { SourcesService } from '../sources.service';
 import { Source } from '../models/source';
-import { FormGroup, FormControl, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { CustomValidators } from './validators/customValidators';
 
 
@@ -46,8 +46,12 @@ export class GateComponent implements OnInit {
 
 
     this.form = new FormGroup({
-      link : new FormControl("",),
-      phone : new FormControl("",),
+
+      linkPhone : new FormGroup({
+        link : new FormControl("",),
+        phone : new FormControl("",),
+      }
+      , this.MustMatch()),
       
       source_id : new FormControl("", Validators.required),
       unit_id : new FormControl("", Validators.required),
@@ -57,9 +61,10 @@ export class GateComponent implements OnInit {
       is_express_delivery : new FormControl(""),
       
       text : new FormControl(""),
-
       user_id : new FormControl(""),
-    }, { validator: this.MustMatch()});
+      
+      
+    });
   }
 
   // convenience getter for easy access to form fields
@@ -70,39 +75,26 @@ export class GateComponent implements OnInit {
   }
 
   MustMatch(): ValidatorFn {
-    return (formControl: AbstractControl): { [key: string]: boolean } | null => {
-      
-      //let phone = formControl;
-      let link;
-      let phone;
-      
-      if(formControl.parent) {
-        link = formControl.parent.get('link');
-        phone = formControl.parent.get('phone');
-      }
+    return (group: FormGroup):  ValidationErrors => {
+
+      const link = group.controls['link'];
+      const phone = group.controls['phone'];
 
       if(!link || !phone) {
-        console.log('null');
         return null;
       }
 
-      
-      //console.log(phone.value);
-
-      if(link.value == "" && phone.value == "" || link.value != "" && phone.value != "") {
-        return {'mustMatch': true};
+      if(link.value == "" && phone.value == "" || (link.value != "" && phone.value != "")) {
+        link.setErrors({'mustMatch': true});
+        phone.setErrors({'mustMatch': true});
+        //return {'mustMatch': true};
       }
     
       else {
-        console.log('empty');
+        link.setErrors(null);
+        phone.setErrors(null);
         return null;
       }
-
-      
-
-
-
-      
       
     };
   }

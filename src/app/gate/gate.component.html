@@ -43,32 +43,57 @@
     <div class="row">
         <form [formGroup]="form" (ngSubmit)="onSubmit()" class="col s12">
 
-            <div class="row">
-                <div class="input-field col s12 m12 l6">
-                    <input formControlName="link"  type="text" class="validate">
-                    <label for="link">Ссылка</label>
-                    <span *ngIf="f.link.hasError('mustMatch')">Ссылка или телефон </span>
+            <div formGroupName="linkPhone" class="row">
+                <div class="col s12 m12 l6">
+                    <mz-input-container>
+                        <input 
+                            mz-input
+                            formControlName="link" 
+                            [label]="'Ссылка'"
+                            id="link-input"
+                            [validate]="false"
+                            type="text" 
+                            [ngClass]="{'invalid': f.linkPhone.get('link').hasError('mustMatch')}"
+                            [dataError]="f.linkPhone.get('link').hasError('mustMatch') ? 'Ссилка или телефон' : ''"
+
+                        >
+                    
+                    </mz-input-container>    
                 </div>
-                <div class="input-field col s12 m12 l6">
-                    <input formControlName="phone"  type="text" class="validate">
-                    <label for="phone">Телефон</label>
-                    <span *ngIf="f.phone.hasError('mustMatch')">Ссылка или телефон</span>
+                <div class="col s12 m12 l6">
+                    <mz-input-container>
+                        <input 
+                            mz-input
+                            formControlName="phone"
+                            [validate]="false"
+                            [label]="'Телефон'"
+                            id="phone-input"  
+                            type="text" 
+                            [ngClass]="{'invalid': f.linkPhone.get('phone').hasError('mustMatch')}"
+                            [dataError]="f.linkPhone.get('phone').hasError('mustMatch') ? 'Ссилка или телефон' : ''"
+                            
+                        >
+                </mz-input-container>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12 m12 l6">
                     <mz-select-container>
                     <select mz-select formControlName="source_id" >
-                        <option value="" disabled selected>Подразделения</option>
+                        <option value=""  selected>Подразделения</option>
                         <option *ngFor="let unit of units" [value]="unit._id" >{{unit.name}}</option>
                     </select>
                     </mz-select-container>
                 </div>
                 <div class="input-field col s12 m12 l6">
                     <mz-select-container>
-                    <select mz-select  formControlName="unit_id" >
-                        <option value="" disabled selected>Источник</option>
-                        <option *ngFor="let source of sources" [value]="sources._id" >{{source.title}}</option>
+                    <select 
+                        mz-select  
+                        formControlName="unit_id"
+                        [ngClass]="{ invalid : f.unit_id.errors.required }"
+                         >
+                            <option value=""  selected>Источник</option>
+                            <option *ngFor="let source of sources" [value]="sources._id" >{{source.title}}</option>
                     </select>
                     </mz-select-container>
                 </div>
