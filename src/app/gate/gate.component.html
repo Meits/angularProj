@@ -79,22 +79,28 @@
             <div class="row">
                 <div class="input-field col s12 m12 l6">
                     <mz-select-container>
-                    <select mz-select formControlName="source_id" >
-                        <option value=""  selected>Подразделения</option>
-                        <option *ngFor="let unit of units" [value]="unit._id" >{{unit.name}}</option>
+                    <select 
+                        mz-select 
+                        formControlName="unit_id" 
+                    >
+                            <option value=""  selected>Подразделения</option>
+                            <option *ngFor="let unit of units" [value]="unit.id" >{{unit.name}}</option>
                     </select>
+                    <div class="invalid_custom" *ngIf="f.unit_id.errors  && f.unit_id.errors.required && f.unit_id.touched">Обязательно к заполнению</div>
                     </mz-select-container>
                 </div>
                 <div class="input-field col s12 m12 l6">
                     <mz-select-container>
                     <select 
                         mz-select  
-                        formControlName="unit_id"
-                        [ngClass]="{ invalid : f.unit_id.errors.required }"
+                        formControlName="source_id"
+                    
                          >
                             <option value=""  selected>Источник</option>
-                            <option *ngFor="let source of sources" [value]="sources._id" >{{source.title}}</option>
+                            <option *ngFor="let source of sources" [value]="sources.id" >{{source.title}}</option>
                     </select>
+                    <div class="invalid_custom" *ngIf="f.source_id.errors  && f.source_id.errors.required && f.source_id.touched">Обязательно к заполнению</div>
+                    
                     </mz-select-container>
                 </div>
             </div>

@@ -21,6 +21,7 @@ import { SourcesService } from './sources.service';
 import { LoginComponent } from './client/login/login.component';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
+import { PreloaderComponent } from './_childComponents/preloader/preloader.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
     GateComponent,
     SourcesComponent,
     ModalSourcesComponent,
-    LoginComponent
+    LoginComponent,
+    PreloaderComponent
   ],
   imports: [
     
@@ -52,7 +54,8 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
     MzCardModule,
     MzToastModule ,
     MzSelectModule,
-    MzRadioButtonModule
+    MzRadioButtonModule,
+    MzSpinnerModule 
   ],
   entryComponents: [ModalSourcesComponent],
   bootstrap: [AppComponent],

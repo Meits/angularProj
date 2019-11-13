@@ -72,6 +72,9 @@ export class GateComponent implements OnInit {
 
   onSubmit () {
     console.log(this.form);
+    console.log((this.f.unit_id.errors && this.f.unit_id.errors.required));
+    console.log();
+
   }
 
   MustMatch(): ValidatorFn {

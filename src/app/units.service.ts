@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { PreloaderService } from './services/preloader.service';
 
 @Injectable({
   providedIn: 'root'
@@ -6,18 +7,18 @@ import { Injectable } from '@angular/core';
 
 export class UnitsService {
 
-  constructor() { }
+  constructor(private preloaderService: PreloaderService) { }
 
   getUnits () {
 
     return [
         {
-          _id : "223234234",
+          id : 2,
           name : "OLX",
 
         },
         {
-          _id : "345345345",
+          id : 3,
           name : "Instagramm",
 
         },

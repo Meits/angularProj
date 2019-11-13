@@ -1,24 +1,22 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Source } from './models/source';
 import { environment } from 'src/environments/environment';
+import { BaseService } from './services/base.service';
+import { finalize } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class SourcesService {
+export class SourcesService extends BaseService{
 
   sources: Array<Source>;
   
-  constructor(private http : HttpClient) {
-    //this.getServices();
-   }
 
   deleteSource(source: Source): any {
     return this.http.delete(environment.apiUrl + 'api/admin/sources/' + source.id );
   }
-  
+   
   updateSource(source: Source): any {
     return this.http.put<Source>(environment.apiUrl + 'api/admin/sources/' + source.id, source );
   }
@@ -29,7 +27,10 @@ export class SourcesService {
   }
 
   getServices () {
-    return this.http.get<Array<Source>>(environment.apiUrl + 'api/admin/sources');
+    this.requestInterceptor();
+    return this.http.get<Array<Source>>(environment.apiUrl + 'api/admin/sources').pipe(finalize(() => {
+      this.responseInterceptor();
+    }));
   }
 
   getService(id: any, sources : Array<Source>): Source {
