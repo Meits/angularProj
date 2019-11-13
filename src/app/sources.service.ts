@@ -12,7 +12,6 @@ export class SourcesService extends BaseService{
 
   sources: Array<Source>;
   
-
   deleteSource(source: Source): any {
     return this.http.delete(environment.apiUrl + 'api/admin/sources/' + source.id );
   }

@@ -212,7 +212,7 @@
                     <label for="text">Комментарий</label>
                 </div>
             </div>
-            <button  class="btn waves-effect waves-light" type="submit" name="action">Сохранить
+            <button  [disabled]="form.invalid" class="btn waves-effect waves-light" type="submit" name="action">Сохранить
                 <i class="material-icons right">send</i>
             </button>
             <div class="row">

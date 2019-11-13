@@ -5,6 +5,9 @@ import { SourcesService } from '../sources.service';
 import { Source } from '../models/source';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { CustomValidators } from './validators/customValidators';
+import { LeadService } from '../services/lead/lead.service';
+import { Lead } from '../models/lead';
+import { MzToastService } from 'ngx-materialize';
 
 
 
@@ -24,13 +27,13 @@ export class GateComponent implements OnInit {
 
   isLead : boolean;
 
-  link;
-  phone;
+  lead : Lead;
+
 
 
   
-  constructor(private unitsService: UnitsService, private sourcesService : SourcesService) {
-    
+  constructor(private unitsService: UnitsService, private sourcesService : SourcesService, private leadService : LeadService, private toastService : MzToastService) {
+    this.lead = new Lead();
   }
 
 
@@ -71,9 +74,18 @@ export class GateComponent implements OnInit {
   get f() { return this.form.controls; }
 
   onSubmit () {
-    console.log(this.form);
-    console.log((this.f.unit_id.errors && this.f.unit_id.errors.required));
-    console.log();
+    
+
+    if (this.form.invalid) {
+      return;
+    }
+
+    this.leadService.storeLead(this.form.value).subscribe((Lead) => {
+      this.toastService.show('Saved', 4000);
+      //this.clearSource();
+    });
+
+
 
   }
 
