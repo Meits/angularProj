@@ -97,7 +97,7 @@
                     
                          >
                             <option value=""  selected>Источник</option>
-                            <option *ngFor="let source of sources" [value]="sources.id" >{{source.title}}</option>
+                            <option *ngFor="let source of sources" [value]="source.id" >{{source.title}}</option>
                     </select>
                     <div class="invalid_custom" *ngIf="f.source_id.errors  && f.source_id.errors.required && f.source_id.touched">Обязательно к заполнению</div>
                     
@@ -208,7 +208,7 @@
             </ng-template>
             <div class="row">
                 <div class="input-field col s12">
-                    <textarea formControlName="user_id" id="text"  class="materialize-textarea"></textarea>
+                    <textarea formControlName="text" id="text"  class="materialize-textarea"></textarea>
                     <label for="text">Комментарий</label>
                 </div>
             </div>

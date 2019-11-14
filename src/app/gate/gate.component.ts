@@ -74,13 +74,14 @@ export class GateComponent implements OnInit {
   get f() { return this.form.controls; }
 
   onSubmit () {
-    
 
     if (this.form.invalid) {
       return;
     }
 
-    this.leadService.storeLead(this.form.value).subscribe((Lead) => {
+    this.lead = Object.assign(this.form.value, this.form.get('linkPhone').value);
+    
+    this.leadService.storeLead(this.lead).subscribe((Lead) => {
       this.toastService.show('Saved', 4000);
       //this.clearSource();
     });

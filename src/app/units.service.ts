@@ -13,13 +13,18 @@ export class UnitsService {
 
     return [
         {
+          id : 1,
+          name : "Shop 1",
+
+        },
+        {
           id : 2,
-          name : "OLX",
+          name : "Shop 2",
 
         },
         {
           id : 3,
-          name : "Instagramm",
+          name : "Shop 3",
 
         },
     ];
