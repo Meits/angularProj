@@ -22,6 +22,14 @@ import { LoginComponent } from './client/login/login.component';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { PreloaderComponent } from './_childComponents/preloader/preloader.component';
+import { HttpService } from './services/http-service';
+import { PreloaderService } from './services/preloader.service';
+import { RequestOptions, XHRBackend, HttpModule } from '@angular/http';
+
+
+export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestOptions, preloaderService: PreloaderService) {
+  return new HttpService(backend, defaultOptions, preloaderService);
+}
 
 
 @NgModule({
@@ -55,11 +63,18 @@ import { PreloaderComponent } from './_childComponents/preloader/preloader.compo
     MzToastModule ,
     MzSelectModule,
     MzRadioButtonModule,
-    MzSpinnerModule 
+    MzSpinnerModule,
+    HttpModule 
   ],
   entryComponents: [ModalSourcesComponent],
   bootstrap: [AppComponent],
   providers : [
+    {
+      provide: HttpService,
+      deps: [XHRBackend, RequestOptions, PreloaderService],
+      useFactory: httpServiceFactory,
+    },
+    
     SourcesService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

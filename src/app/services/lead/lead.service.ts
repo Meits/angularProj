@@ -7,6 +7,10 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class LeadService extends BaseService {
+  
+  addSaleCount() {
+    return this.http.get<any>(environment.apiUrl + 'api/admin/leads/addSale/count');
+  }
 
   storeLead(lead: Lead) {
     let options = {}; 

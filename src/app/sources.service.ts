@@ -1,36 +1,38 @@
 import { Injectable } from '@angular/core';
 import { Source } from './models/source';
 import { environment } from 'src/environments/environment';
-import { BaseService } from './services/base.service';
-import { finalize } from 'rxjs/operators';
+//import { BaseService } from './services/base.service';
+//import { finalize } from 'rxjs/operators';
+import { HttpService } from './services/http-service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 
-export class SourcesService extends BaseService{
+export class SourcesService /*extends BaseService*/ {
 
   sources: Array<Source>;
+
+  constructor(private http: HttpService) {
+    
+  }
+  
   
   deleteSource(source: Source): any {
     return this.http.delete(environment.apiUrl + 'api/admin/sources/' + source.id );
   }
    
   updateSource(source: Source): any {
-    return this.http.put<Source>(environment.apiUrl + 'api/admin/sources/' + source.id, source );
+    return this.http.put(environment.apiUrl + 'api/admin/sources/' + source.id, source );
   }
 
   saveSource(source: Source) {
     let options = {}; 
-    return this.http.post<Source>(environment.apiUrl + 'api/admin/sources', source, options );
+    return this.http.post(environment.apiUrl + 'api/admin/sources', source, options );
   }
 
   getServices () {
-    this.requestInterceptor();
-    return this.http.get<Array<Source>>(environment.apiUrl + 'api/admin/sources').pipe(finalize(() => {
-      this.responseInterceptor();
-    }));
+      return this.http.get(environment.apiUrl + 'api/admin/sources', null ,'full');
   }
+
 
   getService(id: any, sources : Array<Source>): Source {
     let result : Source;

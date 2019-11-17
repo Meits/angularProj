@@ -26,6 +26,7 @@ export class GateComponent implements OnInit {
   sources: Array<Source>;
 
   isLead : boolean;
+  addSaleCount : number = 0;
 
   lead : Lead;
 
@@ -41,6 +42,7 @@ export class GateComponent implements OnInit {
 
   ngOnInit() {
     this.units = this.unitsService.getUnits();
+    this.getAddSaleCount();
     this.sourcesService.getServices()
     .subscribe((data: Array<Source>) =>  {
       this.sources = data;
@@ -69,6 +71,11 @@ export class GateComponent implements OnInit {
       
     });
   }
+  getAddSaleCount()  {
+    this.leadService.addSaleCount().subscribe((data) => {
+      this.addSaleCount = data.data.number;
+    });
+  }
 
   // convenience getter for easy access to form fields
   get f() { return this.form.controls; }
@@ -80,14 +87,16 @@ export class GateComponent implements OnInit {
     }
 
     this.lead = Object.assign(this.form.value, this.form.get('linkPhone').value);
+
+    this.storeLead();
     
-    this.leadService.storeLead(this.lead).subscribe((Lead) => {
+  }
+
+  storeLead () {
+    this.leadService.storeLead(this.lead).subscribe((data) => {
       this.toastService.show('Saved', 4000);
       //this.clearSource();
     });
-
-
-
   }
 
   MustMatch(): ValidatorFn {
