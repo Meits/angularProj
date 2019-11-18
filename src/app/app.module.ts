@@ -25,6 +25,7 @@ import { PreloaderComponent } from './_childComponents/preloader/preloader.compo
 import { HttpService } from './services/http-service';
 import { PreloaderService } from './services/preloader.service';
 import { RequestOptions, XHRBackend, HttpModule } from '@angular/http';
+import { NavigationComponent } from './_childComponents/navigation/navigation/navigation.component';
 
 
 export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestOptions, preloaderService: PreloaderService) {
@@ -43,7 +44,8 @@ export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestO
     SourcesComponent,
     ModalSourcesComponent,
     LoginComponent,
-    PreloaderComponent
+    PreloaderComponent,
+    NavigationComponent
   ],
   imports: [
     

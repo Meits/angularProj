@@ -1,0 +1,26 @@
+<nav *ngIf="navMenu" class="blue accent-3" role="navigation">
+  <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">Angular CRM</a>
+      <ul class="right hide-on-med-and-down">
+          <li><a class="" [routerLink]="[ '/' ]" >Dashboard</a></li>
+          <li><a [routerLink]="['gate']">Gate</a></li>
+          <li><a [routerLink]="['users']">Users</a></li>
+          <li><a [routerLink]="['units']">Units</a></li>
+          <li><a [routerLink]="['sources']">Sources</a></li>
+          <li><a [routerLink]="['archives']">Archives</a></li>
+          <li><a [routerLink]="[ '/' ]" >Logout</a></li>
+      </ul>
+
+      <!-- <ul id="nav-mobile" class="sidenav">
+        <li><a class="" [routerLink]="[ '/' ]" >Dashboard</a></li>
+          <li><a [routerLink]="['gate']">Gate</a></li>
+          <li><a [routerLink]="['users']">Users</a></li>
+          <li><a [routerLink]="['units']">Units</a></li>
+          <li><a [routerLink]="['sources']">Sources</a></li>
+          <li><a [routerLink]="['archives']">Archives</a></li>
+          <li><a [routerLink]="[ '/' ]" >Logout</a></li>
+    </ul> -->
+
+      <!-- <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
+
+  </div>
+</nav>
