@@ -13,6 +13,8 @@ export class HttpService extends Http {
     super(backend, defaultOptions);
   }
 
+  
+
   /**
    * Performs any type of http request.
    * @param url
@@ -135,6 +137,16 @@ export class HttpService extends Http {
 
     if (options.headers == null) {
       options.headers = new Headers();
+    }
+
+    let currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+    if (currentUser && currentUser.api_token) {
+      
+      
+        options.headers = new Headers({
+          'Authorization' : `Bearer ${currentUser.api_token}`
+        });
+      
     }
 
     return options;

@@ -71,15 +71,15 @@ export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestO
   entryComponents: [ModalSourcesComponent],
   bootstrap: [AppComponent],
   providers : [
+    
+    SourcesService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     {
       provide: HttpService,
       deps: [XHRBackend, RequestOptions, PreloaderService],
       useFactory: httpServiceFactory,
     },
-    
-    SourcesService,
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ]
 })
 export class AppModule { }

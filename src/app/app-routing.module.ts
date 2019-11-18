@@ -12,7 +12,8 @@ import { LoginComponent } from './client/login/login.component';
 const routes: Routes = [
   {
     path: '',
-    component: DashboardComponent
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
   },
   
   {
@@ -23,19 +24,23 @@ const routes: Routes = [
   
   {
     path: 'users',
-    component: UsersComponent
+    component: UsersComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'units',
-    component: UnitsComponent
+    component: UnitsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'sources',
-    component: SourcesComponent
+    component: SourcesComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'archives',
-    component: ArchivesComponent
+    component: ArchivesComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',

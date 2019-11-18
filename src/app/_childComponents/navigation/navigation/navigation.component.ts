@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from "@angular/common";
+import { NavigationService } from 'src/app/services/navigation/navigation.service';
+import { Navigation } from 'src/app/models/navigation';
  
 @Component({
   selector: 'app-navigation',
@@ -10,8 +12,11 @@ import { Location } from "@angular/common";
 export class NavigationComponent implements OnInit {
 
   navMenu : boolean = true;
+  navigation : Array<Navigation>;
 
-  constructor(private router: Router, private location: Location) { 
+
+  
+  constructor(private router: Router, private location: Location, private navigationService : NavigationService) { 
     
     router.events.subscribe((url:any) => {
       if(url.url && url.url.indexOf("login") > 0) {
@@ -25,6 +30,11 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.navigationService.getNavigation()
+    .subscribe((data: Array<Navigation>) =>  {
+      this.navigation = data;
+      console.log(this.navigation);
+    });
   }
 
 }
