@@ -3,6 +3,7 @@ import { Http, ConnectionBackend, Request, RequestOptions, RequestOptionsArgs, R
 import { Observable } from 'rxjs';
 import { PreloaderService } from './preloader.service';
 import { finalize, catchError, tap, map } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class HttpService extends Http {
@@ -141,8 +142,6 @@ export class HttpService extends Http {
 
     let currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
     if (currentUser && currentUser.api_token) {
-      
-      
         options.headers = new Headers({
           'Authorization' : `Bearer ${currentUser.api_token}`
         });
@@ -172,9 +171,15 @@ export class HttpService extends Http {
    * @param caught
    * @returns {ErrorObservable}
    */
-  private onCatch(error: any): Observable<any> {
-    console.log('onCatch');
-    return Observable.throw(error);
+  private onCatch(res: Response): Observable<any> {
+      console.log(res);
+      if (res.status === 401 || res.status === 403) {
+        sessionStorage.removeItem('currentUser');
+        console.log(res);
+      }
+      //Observable.throw(res);
+      return throwError(res);
+    
   }
 
   /**
