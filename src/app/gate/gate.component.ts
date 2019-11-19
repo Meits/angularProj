@@ -61,9 +61,9 @@ export class GateComponent implements OnInit {
       source_id : new FormControl("", Validators.required),
       unit_id : new FormControl("", Validators.required),
       
-      is_processed : new FormControl(""),
-      is_add_sale : new FormControl(""),
-      is_express_delivery : new FormControl(""),
+      is_processed : new FormControl("0"),
+      is_add_sale : new FormControl("0"),
+      is_express_delivery : new FormControl("0"),
       
       text : new FormControl(""),
       user_id : new FormControl(""),
@@ -88,14 +88,33 @@ export class GateComponent implements OnInit {
 
     this.lead = Object.assign(this.form.value, this.form.get('linkPhone').value);
 
-    this.storeLead();
+    this.checkLead();
+    this.form.reset();
     
+  }
+
+  checkLead () {
+    this.leadService.checkLead(this.lead).subscribe((data) => {
+      if(data.exist) {
+          this.lead.id = data.lead.id;
+          this.updateLead();
+      }
+      else {
+        this.storeLead();
+      }
+    });
   }
 
   storeLead () {
     this.leadService.storeLead(this.lead).subscribe((data) => {
       this.toastService.show('Saved', 4000);
-      //this.clearSource();
+    });
+  }
+
+  updateLead() {
+    this.leadService.udateLead(this.lead).subscribe((data) => {
+      this.toastService.show('Updated', 4000);
+      this.addSaleCount++;
     });
   }
 

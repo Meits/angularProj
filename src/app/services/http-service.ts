@@ -172,10 +172,12 @@ export class HttpService extends Http {
    * @returns {ErrorObservable}
    */
   private onCatch(res: Response): Observable<any> {
-      console.log(res);
+      
+    console.log(res);
+
       if (res.status === 401 || res.status === 403) {
         sessionStorage.removeItem('currentUser');
-        console.log(res);
+        ///console.log(res);
       }
       //Observable.throw(res);
       return throwError(res);
