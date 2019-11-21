@@ -8,6 +8,8 @@ import { CustomValidators } from './validators/customValidators';
 import { LeadService } from '../services/lead/lead.service';
 import { Lead } from '../models/lead';
 import { MzToastService } from 'ngx-materialize';
+import { User } from '../models/user';
+import { UserService } from '../services/user.service';
 
 
 
@@ -24,6 +26,7 @@ export class GateComponent implements OnInit {
   form : FormGroup;
   units: Array<object>;
   sources: Array<Source>;
+  users : Array<User>;
 
   isLead : boolean;
   addSaleCount : number = 0;
@@ -33,7 +36,13 @@ export class GateComponent implements OnInit {
 
 
   
-  constructor(private unitsService: UnitsService, private sourcesService : SourcesService, private leadService : LeadService, private toastService : MzToastService) {
+  constructor(  
+        private unitsService: UnitsService, 
+        private sourcesService : SourcesService, 
+        private leadService : LeadService, 
+        private toastService : MzToastService,
+        private userService : UserService
+  ) {
     this.lead = new Lead();
   }
 
@@ -48,6 +57,8 @@ export class GateComponent implements OnInit {
       this.sources = data;
     });
     this.isLead = true;
+
+    this.getUsers();
 
 
     this.form = new FormGroup({
@@ -67,10 +78,21 @@ export class GateComponent implements OnInit {
       
       text : new FormControl(""),
       user_id : new FormControl(""),
-      
+      is_lead : new FormControl(true),
+    
       
     });
+
+    this.onChangesIsLead();
   }
+
+  onChangesIsLead(): void {
+    this.form.get('is_lead').valueChanges.subscribe(val => {
+      this.isLead = val;
+    });
+  }
+
+
   getAddSaleCount()  {
     this.leadService.addSaleCount().subscribe((data) => {
       this.addSaleCount = data.data.number;
@@ -91,6 +113,14 @@ export class GateComponent implements OnInit {
     this.checkLead();
     this.form.reset();
     
+  }
+
+  getUsers () {
+    this.userService.getUsers()
+      .subscribe((data: any) =>  {
+        this.users = data.users;
+        console.log(this.users);
+      });
   }
 
   checkLead () {
@@ -114,7 +144,7 @@ export class GateComponent implements OnInit {
   updateLead() {
     this.leadService.udateLead(this.lead).subscribe((data) => {
       this.toastService.show('Updated', 4000);
-      this.addSaleCount++;
+      //this.addSaleCount++;
     });
   }
 

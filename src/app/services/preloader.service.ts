@@ -30,12 +30,12 @@ export class PreloaderService {
     if (preloaderType === 'full') {
       setTimeout(function() {
         PreloaderService.fullLoadingCount--;
-      },1000);
+      },100);
       
     } else if (preloaderType === 'small') {
       setTimeout(function() {
         PreloaderService.smallLoadingCount--;
-      },1000);
+      },100);
       
     }
   }
