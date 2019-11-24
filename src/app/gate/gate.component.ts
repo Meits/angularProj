@@ -89,6 +89,13 @@ export class GateComponent implements OnInit {
   onChangesIsLead(): void {
     this.form.get('is_lead').valueChanges.subscribe(val => {
       this.isLead = val;
+      this.form.controls['user_id'].setValidators(null);
+      if(!val) {
+        this.form.controls['user_id'].setValidators([Validators.required])
+      }
+
+      this.form.controls['user_id'].updateValueAndValidity();
+      
     });
   }
 
@@ -110,9 +117,28 @@ export class GateComponent implements OnInit {
 
     this.lead = Object.assign(this.form.value, this.form.get('linkPhone').value);
 
-    this.checkLead();
-    this.form.reset();
+    if(this.isLead) {
+      this.checkLead();
+    }
+    else {
+      this.storeTask();
+    }
     
+    this.form.reset({ 
+      is_processed :"0",
+      is_add_sale : "0",
+      is_express_delivery : "0",
+      
+      text : "",
+      user_id : "",
+      is_lead : true,
+    });
+    this.form.markAsPristine();
+    this.form.markAsUntouched();
+    
+  }
+  storeTask() {
+    throw new Error("Method not implemented.");
   }
 
   getUsers () {
@@ -158,10 +184,11 @@ export class GateComponent implements OnInit {
         return null;
       }
 
-      if(link.value == "" && phone.value == "" || (link.value != "" && phone.value != "")) {
+
+      if((!link.value && !phone.value) || (link.value  && phone.value )) {
         link.setErrors({'mustMatch': true});
         phone.setErrors({'mustMatch': true});
-        //return {'mustMatch': true};
+        return {'mustMatch': true};
       }
     
       else {
