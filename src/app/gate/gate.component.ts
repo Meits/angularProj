@@ -10,6 +10,8 @@ import { Lead } from '../models/lead';
 import { MzToastService } from 'ngx-materialize';
 import { User } from '../models/user';
 import { UserService } from '../services/user.service';
+import { TaskService } from '../services/task/task.service';
+import { Task } from '../models/task';
 
 
 
@@ -32,6 +34,7 @@ export class GateComponent implements OnInit {
   addSaleCount : number = 0;
 
   lead : Lead;
+  task : Task;
 
 
 
@@ -41,9 +44,11 @@ export class GateComponent implements OnInit {
         private sourcesService : SourcesService, 
         private leadService : LeadService, 
         private toastService : MzToastService,
-        private userService : UserService
+        private userService : UserService,
+        private taskService : TaskService
   ) {
     this.lead = new Lead();
+    this.task = new Task();
   }
 
 
@@ -77,7 +82,7 @@ export class GateComponent implements OnInit {
       is_express_delivery : new FormControl("0"),
       
       text : new FormControl(""),
-      user_id : new FormControl(""),
+      responsible_id : new FormControl(""),
       is_lead : new FormControl(true),
     
       
@@ -89,12 +94,12 @@ export class GateComponent implements OnInit {
   onChangesIsLead(): void {
     this.form.get('is_lead').valueChanges.subscribe(val => {
       this.isLead = val;
-      this.form.controls['user_id'].setValidators(null);
+      this.form.controls['responsible_id'].setValidators(null);
       if(!val) {
-        this.form.controls['user_id'].setValidators([Validators.required])
+        this.form.controls['responsible_id'].setValidators([Validators.required])
       }
 
-      this.form.controls['user_id'].updateValueAndValidity();
+      this.form.controls['responsible_id'].updateValueAndValidity();
       
     });
   }
@@ -115,12 +120,13 @@ export class GateComponent implements OnInit {
       return;
     }
 
-    this.lead = Object.assign(this.form.value, this.form.get('linkPhone').value);
 
     if(this.isLead) {
+      this.lead = Object.assign(this.form.value, this.form.get('linkPhone').value);
       this.checkLead();
     }
     else {
+      this.task = Object.assign(this.form.value, this.form.get('linkPhone').value);
       this.storeTask();
     }
     
@@ -130,7 +136,7 @@ export class GateComponent implements OnInit {
       is_express_delivery : "0",
       
       text : "",
-      user_id : "",
+      responsible_id : "",
       is_lead : true,
     });
     this.form.markAsPristine();
@@ -138,7 +144,9 @@ export class GateComponent implements OnInit {
     
   }
   storeTask() {
-    throw new Error("Method not implemented.");
+    this.taskService.storeTask(this.task).subscribe((data) => {
+      this.toastService.show('Saved', 4000);
+    });
   }
 
   getUsers () {

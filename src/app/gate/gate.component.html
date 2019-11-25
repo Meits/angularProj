@@ -201,7 +201,7 @@
             <ng-template class="row" #isTask>
                 <div class="input-field col s12 m12 l6">
                 <mz-select-container>
-                    <select mz-select formControlName="user_id" >
+                    <select mz-select formControlName="responsible_id" >
                         <option value="" selected>newLeadChoose</option>
                         <option *ngFor="let user of users" [value]="user.id" >{{user.firstname}}</option>
                     </select>
