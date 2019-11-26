@@ -27,6 +27,8 @@ import { PreloaderService } from './services/preloader.service';
 import { RequestOptions, XHRBackend, HttpModule } from '@angular/http';
 import { NavigationComponent } from './_childComponents/navigation/navigation/navigation.component';
 
+import { OwlModule } from 'ngx-owl-carousel';
+
 
 export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestOptions, preloaderService: PreloaderService) {
   return new HttpService(backend, defaultOptions, preloaderService);
@@ -66,7 +68,8 @@ export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestO
     MzSelectModule,
     MzRadioButtonModule,
     MzSpinnerModule,
-    HttpModule 
+    HttpModule,
+    OwlModule 
   ],
   entryComponents: [ModalSourcesComponent],
   bootstrap: [AppComponent],

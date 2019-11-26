@@ -10,8 +10,13 @@ import { HttpService } from '../http-service';
 export class LeadService  {
   
   
+  
   constructor(private http: HttpService) {
     
+  }
+  
+  getLeads() {
+    return this.http.get(environment.apiUrl + 'api/admin/leads');
   }
 
   checkLead(lead: Lead) {
