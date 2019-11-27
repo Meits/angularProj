@@ -8,6 +8,42 @@
               >
               <div class="item">
                   <h4 class="center-align leads-title">Новые заявки</h4>
+
+
+
+                  <mz-card *ngFor="let lead of nLeads"
+                        class="card card-lead blue-grey darken-1 white-text"
+                        [horizontal]="true"
+                        [hoverable]="true">
+                        
+                        <mz-card-content class="white-text">
+                            <p class="card-content__comments">({{lead.count_create}}) <span class="clip">{{lead.lastComment}}</span></p>
+
+                            <a
+                                    class="lead-link white-text lighten-3"
+                                    [href]="lead.link ? lead.link : 'tel:lead.phone'"
+                                    [target]=" lead.link ? '_blanck' : ''">
+                                {{ lead.link ? lead.link : lead.phone }}
+                            </a>
+                            <div class="flex-block content-between items-center">
+                                <div class="lead__source">
+                                <span class="lead__source-icon">
+                                    
+                                </span>
+                                    <span class="lead__source-title">{{ lead.source_title }}</span>
+                                    
+                                </div>
+                                    
+                                <div
+                                    class="lead__unit-title"
+                                    
+                                    [style]="{backgroundColor:lead.unit_color}"
+                                >{{ lead.unit_title }}
+                                </div>
+                            </div>
+                        </mz-card-content>
+                        
+                    </mz-card>
               </div>
               <div class="item">
                   <h4 class="center-align leads-title">В работе</h4>

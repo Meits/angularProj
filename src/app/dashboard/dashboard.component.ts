@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LeadService } from '../services/lead/lead.service';
 import { Lead } from '../models/lead';
-import { OwlOptions } from 'ngx-owl-carousel-o';
+//import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
   dLeads : Array<Lead>;
 
 
-  customOptions: OwlOptions = {
+  customOptions = {
     loop: true,
     mouseDrag: false,
     touchDrag: false,
