@@ -14,9 +14,12 @@ export class DashboardComponent implements OnInit {
   nLeads : Array<Lead>;
   dLeads : Array<Lead>;
 
+  leadExpress : boolean;
+  leadProcess : boolean;
+
 
   customOptions = {
-    loop: true,
+    loop: false,
     mouseDrag: false,
     touchDrag: false,
     pullDrag: false,

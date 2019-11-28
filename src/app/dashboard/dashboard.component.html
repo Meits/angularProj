@@ -9,6 +9,28 @@
               <div class="item">
                   <h4 class="center-align leads-title">Новые заявки</h4>
 
+                    <div class="filters">
+                            <mz-checkbox-container>
+                                    <input mz-checkbox
+                                      [label]="'Только оформленные'"
+                                      id="leadProcess-id"
+                                      [(ngModel)]="leadProcess"
+                                      filledIn="true"
+                                      class="filled-in"
+                                      type="checkbox">
+                            </mz-checkbox-container>
+                            <mz-checkbox-container>
+                                    <input mz-checkbox
+                                      [label]="'Только курьерская доставка'"
+                                      id="leadExpress-id"
+                                      [(ngModel)]="leadExpress"
+                                      filledIn="true"
+                                      class="filled-in"
+                                      type="checkbox">
+                            </mz-checkbox-container>
+
+                    </div>
+
 
 
                   <mz-card *ngFor="let lead of nLeads"
