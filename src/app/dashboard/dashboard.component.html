@@ -1,6 +1,9 @@
 <div class="dashboard-content" id="index-banner">
     
     <div class="container">
+            <div class="flex-block content-between items-center header-group">
+                    <button class="waves-effect waves-light btn" mz-button (click)="openSourceModal()">Новый источник</button>
+                </div> 
         <div class="row">
             <owl-carousel 
                 [options]="customOptions"
@@ -33,10 +36,12 @@
 
 
 
-                  <mz-card *ngFor="let lead of nLeads"
-                        class="card card-lead blue-grey darken-1 white-text"
+                  <mz-card *ngFor="let lead of nLeads | newLead:leadProcess:leadExpress; let i = index"
+                        [ngClass]="{'card' : true, 'card-lead' : true, 'blue-grey' : true, 'darken-1' : true, 'white-text' : true, 'green': lead.is_processed, 'blue-grey' : !lead.is_processed}"
                         [horizontal]="true"
-                        [hoverable]="true">
+                        [hoverable]="true"
+                        (click)="openHistory($event, lead, i, nLeads)"
+                        >
                         
                         <mz-card-content class="white-text">
                             <p class="card-content__comments">({{lead.count_create}}) <span class="clip">{{lead.lastComment}}</span></p>

@@ -14,7 +14,7 @@ import { GateComponent } from './gate/gate.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
-import {  MzButtonModule, MzInputModule, MzModalModule, MzSwitchModule, MzSpinnerModule, MzCardModule, MzToastModule,MzSelectModule, MzRadioButtonModule, MzCheckboxModule      } from 'ngx-materialize';
+import {  MzButtonModule, MzInputModule, MzModalModule, MzNavbarModule, MzSwitchModule, MzSpinnerModule, MzCardModule, MzToastModule,MzSelectModule, MzRadioButtonModule, MzCheckboxModule, MzSidenavModule      } from 'ngx-materialize';
 import { SourcesComponent } from './sources/sources.component';
 import { ModalSourcesComponent } from './modal-sources/modal-sources.component';
 import { SourcesService } from './sources.service';
@@ -28,6 +28,9 @@ import { RequestOptions, XHRBackend, HttpModule } from '@angular/http';
 import { NavigationComponent } from './_childComponents/navigation/navigation/navigation.component';
 
 import { OwlModule } from 'ngx-owl-carousel';
+import { ModalLeadComponent } from './_childComponents/modalLead/modal-lead/modal-lead.component';
+import { NewLeadPipe } from './pipes/lead/new-lead.pipe';
+import { ModalHistoryComponent } from './_childComponents/modalLead/modal-history/modal-history.component';
 
 
 export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestOptions, preloaderService: PreloaderService) {
@@ -47,7 +50,10 @@ export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestO
     ModalSourcesComponent,
     LoginComponent,
     PreloaderComponent,
-    NavigationComponent
+    NavigationComponent,
+    ModalLeadComponent,
+    NewLeadPipe,
+    ModalHistoryComponent
   ],
   imports: [
     
@@ -70,9 +76,11 @@ export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestO
     MzCheckboxModule,
     MzSpinnerModule,
     HttpModule,
-    OwlModule 
+    OwlModule,
+    MzNavbarModule,
+    MzSidenavModule  
   ],
-  entryComponents: [ModalSourcesComponent],
+  entryComponents: [ModalSourcesComponent, ModalLeadComponent, ModalHistoryComponent],
   bootstrap: [AppComponent],
   providers : [
     

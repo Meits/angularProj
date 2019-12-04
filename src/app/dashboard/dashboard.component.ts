@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { LeadService } from '../services/lead/lead.service';
 import { Lead } from '../models/lead';
+import { ModalSourcesComponent } from '../modal-sources/modal-sources.component';
+import { MzModalService, MzToastService } from 'ngx-materialize';
+import { ModalLeadComponent } from '../_childComponents/modalLead/modal-lead/modal-lead.component';
+import { ModalHistoryComponent } from '../_childComponents/modalLead/modal-history/modal-history.component';
 //import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
@@ -14,8 +18,8 @@ export class DashboardComponent implements OnInit {
   nLeads : Array<Lead>;
   dLeads : Array<Lead>;
 
-  leadExpress : boolean;
-  leadProcess : boolean;
+  leadExpress : boolean = false;
+  leadProcess : boolean= false;
 
 
   customOptions = {
@@ -44,8 +48,8 @@ export class DashboardComponent implements OnInit {
 
   
   constructor(
-    private leadService : LeadService
-    
+    private leadService : LeadService,
+    private modalService: MzModalService,
     ) { 
 
     }
@@ -56,6 +60,15 @@ export class DashboardComponent implements OnInit {
       this.nLeads = data.leads.new;
       this.dLeads = data.leads.done;
     });
+  }
+
+  public openSourceModal() {
+    this.modalService.open(ModalLeadComponent,{leads : this.nLeads});
+  }
+
+  //$event, lead.id, i, nLeads
+  public openHistory(event, lead : Lead, index : number, leads : Array<Lead>) {
+    this.modalService.open(ModalHistoryComponent,{leads : leads, lead : lead, index});
   }
 
 }
