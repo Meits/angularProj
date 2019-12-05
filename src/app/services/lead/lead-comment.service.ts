@@ -9,7 +9,7 @@ export class LeadCommentService {
 
   constructor(private http: HttpService) { }
 
-  getComments() {
-    return this.http.get(environment.apiUrl + 'api/admin/leads_comments');
+  getComments(id : number) {
+    return this.http.get(environment.apiUrl + 'api/admin/leads/' + id);
   }
 }

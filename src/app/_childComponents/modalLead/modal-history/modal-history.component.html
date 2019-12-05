@@ -1,11 +1,81 @@
 <mz-modal #bottomSources>
   <mz-modal-header>
-    <h4>Новый лид</h4>
+    
   </mz-modal-header>
   <mz-modal-content>
       <div class="row">
+            <div class="row">
+                <div class="col s12">
+                    <h4 class="h4-title">
+                        <a
+                            [href]="lead.link ? lead.link : 'tel:lead.phone'"
+                            [target]=" lead.link ? '_blank' : ''"
+                        >{{lead.link ? lead.link : lead.phone}}
+                        </a>
+                    </h4>
+                    <p>Дата создания: {{lead.created_at_o}}</p>
+                    <div class="flex-block content-between">
+                        <div>
+                            <span class="lead__source-icon"></span>
+                            <span class="lead__source-title">{{lead.source_title}}</span>
+                        </div>
+                        <div
+                            class="lead__unit-title"
+                        >{{ lead.unit_title }}
+                        </div>
+                    </div>
 
-          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="col s12">
+                    <div class="flex-block content-between">
+                        <p><strong>Оформлен:</strong> {{lead.is_processed ? 'Да' : 'Нет'}}</p>
+                        <p><strong>Доп. продажа:</strong> {{lead.is_add_sale ? 'Да' : 'Нет'}}
+                        </p>
+                        <p><strong>Курьерская доставка: </strong> {{lead.is_express_delivery ? 'Да' : 'Нет'}}</p>
+                        <p><strong>Статус:</strong> {{lead.status}}</p>
+                        <p><strong>Автор:</strong> {{lead.author}}</p>
+                    </div>
+
+
+                </div>
+            </div>
+      </div>
+      <div class="row">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="col s12">
+                <div class="input-field">
+                    <select ref="status_id" v-model="status_id" name="status_id" class="no-autoinit">
+                        <option value="" disabled selected>newLeadChoose</option>
+                        <option *ngFor="let status of statuses" [value]="status.id" >
+                            {{status.title_ru}}
+                        </option>
+                    </select>
+                    <label>leadHistoryStatus</label>
+                </div>
+
+                <div class="input-field" v-if="change_authors">
+                        <mz-select-container>
+                            <select mz-select formControlName="responsible_id" >
+                                <option value="" selected>newLeadChoose</option>
+                                <option *ngFor="let user of users" [value]="user.id" >{{user.firstname}}</option>
+                            </select>
+                        </mz-select-container>
+        
+                        <label>newLeadUser</label>
+                </div>
+
+                <div class="input-field">
+                        <textarea formControlName="text" id="text"  class="materialize-textarea"></textarea>
+                        <label for="text">Комментарий</label>
+                </div>
+                <button  [disabled]="form.invalid" class="btn waves-effect waves-light" type="submit" name="action">Сохранить
+                        <i class="material-icons right">send</i>
+                </button>
+            </form>
+        </div>    
+        
+        
+        
+        
+        
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="col s12">
               <div class="row">
           
                       <div formGroupName="linkPhone" class="row">
@@ -174,7 +244,31 @@
               </div>
           </form>
 
-      </div>
+      
+      
+      <div class="row">
+
+        <mz-tab class="tabsNew">
+            <mz-tab-item  [active]="'true'" [label]="'Comments'" >
+                    <div id="#comment-history-c" class="col s12 cont active">
+                            <div *ngFor="let cComment of leadComments | event:0" class="history-item">
+                                <p>{{cComment.created_at}}</p>
+                                <p >{{cComment.text}}</p>
+                            </div>
+                        </div>
+            </mz-tab-item>
+            
+            <mz-tab-item [label]="'Events'">
+                    <div id="#comment-history-e" class="col s12 cont active">
+                            <div *ngFor="let cComment of leadComments | event:1" class="history-item">
+                                <p>{{cComment.created_at}}</p>
+                                <p >{{cComment.text}}</p>
+                            </div>
+                        </div>
+            </mz-tab-item>
+  
+        </mz-tab>
+    </div>
   </mz-modal-content>
   <mz-modal-footer>
   </mz-modal-footer>

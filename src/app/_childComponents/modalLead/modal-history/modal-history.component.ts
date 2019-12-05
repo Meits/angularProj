@@ -8,6 +8,7 @@ import { FormGroup, FormControl, Validators, ValidatorFn, ValidationErrors } fro
 import { Source } from 'src/app/models/source';
 import { LeadComment } from 'src/app/models/leadComment';
 import { LeadCommentService } from 'src/app/services/lead/lead-comment.service';
+import { LeadHistory } from 'src/app/models/leadHistory';
 
 @Component({
   selector: 'app-modal-history',
@@ -46,19 +47,23 @@ export class ModalHistoryComponent extends MzBaseModal  implements OnInit {
 
     if(!this.lead) {
       this.lead = new Lead();
-      this.getLeadComments(this.lead.id);
     }
-
-    console.log(this.lead);
 
     let vv = this;
     setTimeout(function() {
       vv.units = vv.unitsService.getUnits();
-    
+      
       vv.sourcesService.getServices()
       .subscribe((data: Array<Source>) =>  {
         vv.sources = data;
       });
+
+      if(vv.lead.id) {
+        vv.leadCommentService.getComments(vv.lead.id).subscribe((data: LeadHistory) =>  {
+          vv.leadComments = data.history;
+        });
+      }
+      
     },10);
     
   
@@ -84,9 +89,7 @@ export class ModalHistoryComponent extends MzBaseModal  implements OnInit {
 
   
   }
-  getLeadComments(id: number) {
-    throw new Error("Method not implemented.");
-  }
+
 
   MustMatch(): ValidatorFn {
     return (group: FormGroup):  ValidationErrors => {

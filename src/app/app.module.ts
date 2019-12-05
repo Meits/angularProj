@@ -14,7 +14,7 @@ import { GateComponent } from './gate/gate.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
-import {  MzButtonModule, MzInputModule, MzModalModule, MzNavbarModule, MzSwitchModule, MzSpinnerModule, MzCardModule, MzToastModule,MzSelectModule, MzRadioButtonModule, MzCheckboxModule, MzSidenavModule      } from 'ngx-materialize';
+import {  MzButtonModule, MzInputModule, MzModalModule, MzNavbarModule, MzSwitchModule, MzSpinnerModule, MzCardModule, MzToastModule,MzSelectModule, MzRadioButtonModule, MzCheckboxModule, MzSidenavModule, MzTabModule      } from 'ngx-materialize';
 import { SourcesComponent } from './sources/sources.component';
 import { ModalSourcesComponent } from './modal-sources/modal-sources.component';
 import { SourcesService } from './sources.service';
@@ -31,6 +31,7 @@ import { OwlModule } from 'ngx-owl-carousel';
 import { ModalLeadComponent } from './_childComponents/modalLead/modal-lead/modal-lead.component';
 import { NewLeadPipe } from './pipes/lead/new-lead.pipe';
 import { ModalHistoryComponent } from './_childComponents/modalLead/modal-history/modal-history.component';
+import { EventPipe } from './pipes/leadComments/event.pipe';
 
 
 export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestOptions, preloaderService: PreloaderService) {
@@ -53,7 +54,8 @@ export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestO
     NavigationComponent,
     ModalLeadComponent,
     NewLeadPipe,
-    ModalHistoryComponent
+    ModalHistoryComponent,
+    EventPipe
   ],
   imports: [
     
@@ -78,6 +80,7 @@ export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestO
     HttpModule,
     OwlModule,
     MzNavbarModule,
+    MzTabModule, 
     MzSidenavModule  
   ],
   entryComponents: [ModalSourcesComponent, ModalLeadComponent, ModalHistoryComponent],
