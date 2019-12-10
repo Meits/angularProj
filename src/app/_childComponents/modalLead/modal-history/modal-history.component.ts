@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { MzBaseModal, MzToastService } from 'ngx-materialize';
 import { LeadService } from 'src/app/services/lead/lead.service';
 import { Lead } from 'src/app/models/lead';
@@ -9,11 +9,16 @@ import { Source } from 'src/app/models/source';
 import { LeadComment } from 'src/app/models/leadComment';
 import { LeadCommentService } from 'src/app/services/lead/lead-comment.service';
 import { LeadHistory } from 'src/app/models/leadHistory';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/models/user';
+import { Status } from 'src/app/models/status';
+import { StatusService } from 'src/app/services/status/status.service';
 
 @Component({
   selector: 'app-modal-history',
   templateUrl: './modal-history.component.html',
-  styleUrls: ['./modal-history.component.sass']
+  styleUrls: ['./modal-history.component.sass'],
+  //changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModalHistoryComponent extends MzBaseModal  implements OnInit {
 
@@ -21,19 +26,28 @@ export class ModalHistoryComponent extends MzBaseModal  implements OnInit {
   units: Array<object>;
   sources: Array<Source>;
   leadComments: Array<LeadComment>;
+  leadComment: LeadComment;
+  users : Array<User>;
+  statuses : Array<Status>;
   
   constructor(
       private leadService : LeadService, 
       private toastService: MzToastService,
       private unitsService: UnitsService, 
       private sourcesService : SourcesService, 
-      private leadCommentService : LeadCommentService
+      private leadCommentService : LeadCommentService,
+      private userService : UserService,
+      private statusService : StatusService
       ) {
     super();
 
     this.leadComments = [];
+    this.leadComment = new LeadComment();
   }
 
+  @Input() nLeads : Array<Lead>;
+  @Input() processingLeads : Array<Lead>;
+  @Input() dLeads : Array<Lead>;
   @Input() leads : Array<Lead>;
   @Input() lead : Lead;
   @Input() index : number;
@@ -51,6 +65,9 @@ export class ModalHistoryComponent extends MzBaseModal  implements OnInit {
 
     let vv = this;
     setTimeout(function() {
+
+      vv.getUsers();
+      vv.getStatuses();
       vv.units = vv.unitsService.getUnits();
       
       vv.sourcesService.getServices()
@@ -65,57 +82,32 @@ export class ModalHistoryComponent extends MzBaseModal  implements OnInit {
       }
       
     },10);
-    
-  
+
 
     this.form = new FormGroup({
 
-      linkPhone : new FormGroup({
-        link : new FormControl(this.lead.link),
-        phone : new FormControl(this.lead.phone),
-      }
-      , this.MustMatch()),
-      
-      source_id : new FormControl(this.lead.source_id, Validators.required),
-      unit_id : new FormControl(this.lead.unit_id, Validators.required),
-      
-      is_processed : new FormControl(this.lead.is_processed ? "1" : "0"),
-      is_add_sale : new FormControl(this.lead.is_add_sale ? "1" : "0"),
-      is_express_delivery : new FormControl(this.lead.is_express_delivery ? "1" : "0"),
-      
       text : new FormControl(""),
+      status_id : new FormControl(this.lead.status_id),
+      user_id : new FormControl(this.lead.user_id),
       
     });
 
   
   }
-
-
-  MustMatch(): ValidatorFn {
-    return (group: FormGroup):  ValidationErrors => {
-
-      const link = group.controls['link'];
-      const phone = group.controls['phone'];
-
-      if(!link || !phone) {
-        return null;
-      }
-
-
-      if((!link.value && !phone.value) || (link.value  && phone.value )) {
-        link.setErrors({'mustMatch': true});
-        phone.setErrors({'mustMatch': true});
-        return {'mustMatch': true};
-      }
-    
-      else {
-        link.setErrors(null);
-        phone.setErrors(null);
-        return null;
-      }
-      
-    };
+  getStatuses() {
+    this.statusService.getStatuses()
+      .subscribe((data: any) =>  {
+        this.statuses = data.statuses;
+      });
   }
+
+  getUsers () {
+    this.userService.getUsers()
+      .subscribe((data: any) =>  {
+        this.users = data.users;
+      });
+  }
+
 
   onSubmit () {
 
@@ -123,23 +115,37 @@ export class ModalHistoryComponent extends MzBaseModal  implements OnInit {
       return;
     }
 
-    this.lead = Object.assign(this.form.value, this.form.get('linkPhone').value);
-    this.checkLead();
-    
-    this.form.reset({ 
-      is_processed :"0",
-      is_add_sale : "0",
-      is_express_delivery : "0",
-      
-      text : "",
-      responsible_id : "",
-      is_lead : true,
-    });
-    this.form.markAsPristine();
-    this.form.markAsUntouched();
+    this.leadComment = Object.assign(this.form.value);
+    this.leadComment.lead_id = this.lead.id;
+
+    this.storeLeadComment();
 
     this.modalComponent.closeModal();
     
+  }
+  storeLeadComment() {
+
+    this.leadCommentService.storeLeadComment(this.leadComment).subscribe((data) => {
+      this.toastService.show('Saved', 4000);
+
+      //console.log(this.leads)
+    
+      this.leads.splice(this.index, 1); /*вырезаем лид*/
+      
+      this.lead = data.lead;
+      if(this.lead.status_id == 1) {
+        this.nLeads.push(this.lead);
+      }
+      if(this.lead.status_id == 2) {
+        this.processingLeads.push(this.lead);
+      }
+      if(this.lead.status_id == 3) {
+        this.dLeads.push(this.lead);
+      }
+
+    });
+
+  
   }
 
   checkLead () {
@@ -157,7 +163,7 @@ export class ModalHistoryComponent extends MzBaseModal  implements OnInit {
   storeLead () {
     this.leadService.storeLead(this.lead).subscribe((data) => {
       this.toastService.show('Saved', 4000);
-      this.leads.push(data.lead);
+      this.nLeads.push(data.lead);
     });
 
   }

@@ -4,6 +4,7 @@ export class Lead {
     phone: string;
     source_id: number;
     unit_id: number;
+    user_id: number;
     is_processed: boolean;
     is_express_delivery: boolean;
     is_add_sale: boolean;

@@ -32,6 +32,7 @@ import { ModalLeadComponent } from './_childComponents/modalLead/modal-lead/moda
 import { NewLeadPipe } from './pipes/lead/new-lead.pipe';
 import { ModalHistoryComponent } from './_childComponents/modalLead/modal-history/modal-history.component';
 import { EventPipe } from './pipes/leadComments/event.pipe';
+import { TypePipe } from './pipes/lead/type.pipe';
 
 
 export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestOptions, preloaderService: PreloaderService) {
@@ -55,7 +56,8 @@ export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestO
     ModalLeadComponent,
     NewLeadPipe,
     ModalHistoryComponent,
-    EventPipe
+    EventPipe,
+    TypePipe
   ],
   imports: [
     

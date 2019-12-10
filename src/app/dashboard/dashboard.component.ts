@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ComponentRef } from '@angular/core';
 import { LeadService } from '../services/lead/lead.service';
 import { Lead } from '../models/lead';
 import { ModalSourcesComponent } from '../modal-sources/modal-sources.component';
-import { MzModalService, MzToastService } from 'ngx-materialize';
+import { MzModalService, MzToastService, MzBaseModal } from 'ngx-materialize';
 import { ModalLeadComponent } from '../_childComponents/modalLead/modal-lead/modal-lead.component';
 import { ModalHistoryComponent } from '../_childComponents/modalLead/modal-history/modal-history.component';
 //import { OwlOptions } from 'ngx-owl-carousel-o';
@@ -10,7 +10,8 @@ import { ModalHistoryComponent } from '../_childComponents/modalLead/modal-histo
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.sass']
+  styleUrls: ['./dashboard.component.sass'],
+  //changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit {
 
@@ -20,6 +21,8 @@ export class DashboardComponent implements OnInit {
 
   leadExpress : boolean = false;
   leadProcess : boolean= false;
+
+  public modalComponentRef: ComponentRef<ModalHistoryComponent>;
 
 
   customOptions = {
@@ -68,7 +71,18 @@ export class DashboardComponent implements OnInit {
 
   //$event, lead.id, i, nLeads
   public openHistory(event, lead : Lead, index : number, leads : Array<Lead>) {
-    this.modalService.open(ModalHistoryComponent,{leads : leads, lead : lead, index});
+    this.modalComponentRef = <ComponentRef<ModalHistoryComponent>>this.modalService.open(ModalHistoryComponent,
+                  {
+                    nLeads : this.nLeads, 
+                    processingLeads : this.processingLeads, 
+                    dLeads : this.dLeads, 
+                    lead : lead, index,
+                    leads : leads
+                  });
+
+    //console.log(this.modalComponentRef.instance.lead.status_id);
+
+    //this.nLeads.splice(this.index, 1, this.lead); /*вырезаем лид*/
   }
 
 }
