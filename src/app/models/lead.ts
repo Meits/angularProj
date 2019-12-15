@@ -10,4 +10,9 @@ export class Lead {
     is_add_sale: boolean;
     count_create: number;
     status_id: number;
+    created_at: string;
+    source_title: string;
+    unit_title: string;
+    status: string;
+    author: string;
 }

@@ -9,7 +9,7 @@
                 [options]="customOptions"
                 [carouselClasses]="['owl-theme', 'sliding']"
               >
-              <div class="item">
+              <div class="item col s12 m12 l12">
                   <h4 class="center-align leads-title">Новые заявки</h4>
 
                     <div class="filters">
@@ -52,15 +52,22 @@
                             </a>
                             <div class="flex-block content-between items-center">
                                 <div class="lead__source">
-                                <span class="lead__source-icon">
-                                    
-                                </span>
+                                    <span class="lead__source-icon"><svg fill="#fff" width="20px" height="20px" class="" style="border-color: rgb(255, 255, 255);"><use xlink:href="#unit-icon-1"></use></svg></span>
+                                    &nbsp;
                                     <span class="lead__source-title">{{ lead.source_title }}</span>
                                     
                                 </div>
+
+                                <svg 
+                                        *ngIf="lead.is_express_delivery"                                          
+                                        fill="#fff"
+                                        width="35px"
+                                        height="20px"
+                                    ><use xlink:href="#delivery-icon"></use>
+                                    </svg>
                                     
                                 <div
-                                    class="lead__unit-title"
+                                    class="lead__unit-title  mac-ua__color"
                                     
                                     [style]="{backgroundColor:lead.unit_color}"
                                 >{{ lead.unit_title }}
@@ -70,9 +77,24 @@
                         
                     </mz-card>
               </div>
-              <div class="item">
+              <div class="item col s12 m12 l12">
                   <h4 class="center-align leads-title">В работе</h4>
-                  <mz-card *ngFor="let lead of processingLeads; let i = index"
+
+
+                  <div class="filters">
+                    <mz-checkbox-container>
+                            <input mz-checkbox
+                              [label]="'Только оформленные'"
+                              id="processingLeadProcess-id"
+                              [(ngModel)]="processingLeadProcess"
+                              filledIn="true"
+                              class="filled-in"
+                              type="checkbox">
+                    </mz-checkbox-container>
+
+            </div>
+
+                  <mz-card *ngFor="let lead of processingLeads | processing:processingLeadProcess; let i = index"
                         [ngClass]="{'card' : true, 'card-lead' : true, 'blue-grey' : true, 'darken-1' : true, 'white-text' : true, 'green': lead.is_processed, 'blue-grey' : !lead.is_processed}"
                         [horizontal]="true"
                         [hoverable]="true"
@@ -80,6 +102,23 @@
                         >
                         
                         <mz-card-content class="white-text">
+                            <span
+                                [ngClass]="{
+                                    'lead-date' : true, 
+                                    'red' : true,
+                                    'date-wrap' : true,
+                                    'lighten-2': datecheck(lead.created_at, 24,'less'),
+                                    'darken-1' : datecheck(lead.created_at, 24,'more') && datecheck(lead.created_at, 48,'less'),
+                                    'lighten-1' : datecheck(lead.created_at, 48,'more') && datecheck(lead.created_at, 72,'less'),
+                                    'lighten-4' : datecheck(lead.created_at, 72,'more')
+
+                                }"
+                            >
+
+
+                                {{timeStr(lead.created_at)}}
+                            </span
+                            >
                             <p class="card-content__comments">({{lead.count_create}}) <span class="clip">{{lead.lastComment}}</span></p>
 
                             <a
@@ -90,15 +129,22 @@
                             </a>
                             <div class="flex-block content-between items-center">
                                 <div class="lead__source">
-                                <span class="lead__source-icon">
-                                    
-                                </span>
+                                    <span class="lead__source-icon"><svg fill="#fff" width="20px" height="20px" class="" style="border-color: rgb(255, 255, 255);"><use xlink:href="#unit-icon-1"></use></svg></span>
+                                    &nbsp;
                                     <span class="lead__source-title">{{ lead.source_title }}</span>
                                     
                                 </div>
+
+                                <svg 
+                                        *ngIf="lead.is_express_delivery"                                          
+                                        fill="#fff"
+                                        width="35px"
+                                        height="20px"
+                                    ><use xlink:href="#delivery-icon"></use>
+                                    </svg>
                                     
                                 <div
-                                    class="lead__unit-title"
+                                    class="lead__unit-title  mac-ua__color"
                                     
                                     [style]="{backgroundColor:lead.unit_color}"
                                 >{{ lead.unit_title }}
@@ -108,10 +154,34 @@
                         
                     </mz-card>
               </div>
-              <div class="item">
+              <div class="item col s12 m12 l12">
                   <h4 class="center-align leads-title">Выполнено</h4>
-                  <mz-card *ngFor="let lead of dLeads; let i = index"
-                        [ngClass]="{'card' : true, 'card-lead' : true, 'blue-grey' : true, 'darken-1' : true, 'white-text' : true, 'green': lead.is_processed, 'blue-grey' : !lead.is_processed}"
+
+
+                  <div class="filters">
+                    <mz-checkbox-container>
+                            <input mz-checkbox
+                              [label]="'Только качественные'"
+                              id="dleadProcess-id"
+                              [(ngModel)]="dleadQuality"
+                              filledIn="true"
+                              class="filled-in"
+                              type="checkbox">
+                    </mz-checkbox-container>
+                    <mz-checkbox-container>
+                            <input mz-checkbox
+                              [label]="'Только некачественные'"
+                              id="dleadProcess-id2"
+                              [(ngModel)]="dleadQualityFalse"
+                              filledIn="true"
+                              class="filled-in"
+                              type="checkbox">
+                    </mz-checkbox-container>
+
+            </div>
+
+                  <mz-card *ngFor="let lead of dLeads  | done:dleadQuality:dleadQualityFalse; let i = index"
+                        [ngClass]="{'card' : true, 'card-lead' : true,  'darken-1' : true, 'white-text' : true, 'green': lead.isQualityLead, 'red' : !lead.isQualityLead}"
                         [horizontal]="true"
                         [hoverable]="true"
                         (click)="openHistory($event, lead, i, dLeads)"
@@ -128,15 +198,22 @@
                             </a>
                             <div class="flex-block content-between items-center">
                                 <div class="lead__source">
-                                <span class="lead__source-icon">
-                                    
-                                </span>
+                                    <span class="lead__source-icon"><svg fill="#fff" width="20px" height="20px" class="" style="border-color: rgb(255, 255, 255);"><use xlink:href="#unit-icon-1"></use></svg></span>
+                                    &nbsp;
                                     <span class="lead__source-title">{{ lead.source_title }}</span>
                                     
                                 </div>
+
+                                <svg 
+                                        *ngIf="lead.is_express_delivery"                                          
+                                        fill="#fff"
+                                        width="35px"
+                                        height="20px"
+                                    ><use xlink:href="#delivery-icon"></use>
+                                    </svg>
                                     
                                 <div
-                                    class="lead__unit-title"
+                                    class="lead__unit-title mac-ua__color"
                                     
                                     [style]="{backgroundColor:lead.unit_color}"
                                 >{{ lead.unit_title }}

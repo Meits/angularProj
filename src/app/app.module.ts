@@ -33,6 +33,9 @@ import { NewLeadPipe } from './pipes/lead/new-lead.pipe';
 import { ModalHistoryComponent } from './_childComponents/modalLead/modal-history/modal-history.component';
 import { EventPipe } from './pipes/leadComments/event.pipe';
 import { TypePipe } from './pipes/lead/type.pipe';
+import { ModalQualityComponent } from './_childComponents/modalLead/modal-quality/modal-quality.component';
+import { ProcessingPipe } from './pipes/lead/processing.pipe';
+import { DonePipe } from './pipes/lead/done.pipe';
 
 
 export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestOptions, preloaderService: PreloaderService) {
@@ -57,7 +60,10 @@ export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestO
     NewLeadPipe,
     ModalHistoryComponent,
     EventPipe,
-    TypePipe
+    TypePipe,
+    ModalQualityComponent,
+    ProcessingPipe,
+    DonePipe
   ],
   imports: [
     
@@ -85,7 +91,7 @@ export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestO
     MzTabModule, 
     MzSidenavModule  
   ],
-  entryComponents: [ModalSourcesComponent, ModalLeadComponent, ModalHistoryComponent],
+  entryComponents: [ModalSourcesComponent, ModalLeadComponent, ModalHistoryComponent, ModalQualityComponent],
   bootstrap: [AppComponent],
   providers : [
     

@@ -8,6 +8,9 @@ import { HttpService } from '../http-service';
   providedIn: 'root'
 })
 export class LeadService  {
+  addQuality(lead: any) {
+    return this.http.put(environment.apiUrl + 'api/admin/leads/update/quality/' + lead.id, lead );
+  }
   
   
   

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
 import { MzBaseModal, MzToastService } from 'ngx-materialize';
 import { LeadService } from 'src/app/services/lead/lead.service';
 import { Lead } from 'src/app/models/lead';
@@ -51,6 +51,8 @@ export class ModalHistoryComponent extends MzBaseModal  implements OnInit {
   @Input() leads : Array<Lead>;
   @Input() lead : Lead;
   @Input() index : number;
+
+  @Output() onQuality = new EventEmitter()
 
   // convenience getter for easy access to form fields
   get f() { return this.form.controls; }
@@ -141,6 +143,7 @@ export class ModalHistoryComponent extends MzBaseModal  implements OnInit {
       }
       if(this.lead.status_id == 3) {
         this.dLeads.push(this.lead);
+        this.onQuality.emit(this.lead);
       }
 
     });
