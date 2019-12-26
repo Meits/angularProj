@@ -8,6 +8,9 @@ import { HttpService } from '../http-service';
   providedIn: 'root'
 })
 export class LeadService  {
+  getArchiveLeads(page : number) {
+    return this.http.get(environment.apiUrl + 'api/admin/leads/archive/index'+"?page=" + page);
+  }
   addQuality(lead: any) {
     return this.http.put(environment.apiUrl + 'api/admin/leads/update/quality/' + lead.id, lead );
   }

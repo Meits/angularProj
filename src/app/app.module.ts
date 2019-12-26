@@ -36,6 +36,7 @@ import { TypePipe } from './pipes/lead/type.pipe';
 import { ModalQualityComponent } from './_childComponents/modalLead/modal-quality/modal-quality.component';
 import { ProcessingPipe } from './pipes/lead/processing.pipe';
 import { DonePipe } from './pipes/lead/done.pipe';
+import { AnaliticsComponent } from './analitics/analitics.component';
 
 
 export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestOptions, preloaderService: PreloaderService) {
@@ -63,7 +64,8 @@ export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestO
     TypePipe,
     ModalQualityComponent,
     ProcessingPipe,
-    DonePipe
+    DonePipe,
+    AnaliticsComponent
   ],
   imports: [
     
