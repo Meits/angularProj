@@ -14,7 +14,7 @@ import { GateComponent } from './gate/gate.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
-import {  MzButtonModule, MzInputModule, MzModalModule, MzNavbarModule, MzSwitchModule, MzSpinnerModule, MzCardModule, MzToastModule,MzSelectModule, MzRadioButtonModule, MzCheckboxModule, MzSidenavModule, MzTabModule      } from 'ngx-materialize';
+import {  MzButtonModule, MzInputModule, MzModalModule, MzNavbarModule, MzSwitchModule, MzSpinnerModule, MzCardModule, MzToastModule,MzSelectModule, MzRadioButtonModule, MzCheckboxModule, MzSidenavModule, MzTabModule, MzDatepickerModule      } from 'ngx-materialize';
 import { SourcesComponent } from './sources/sources.component';
 import { ModalSourcesComponent } from './modal-sources/modal-sources.component';
 import { SourcesService } from './sources.service';
@@ -91,7 +91,8 @@ export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestO
     OwlModule,
     MzNavbarModule,
     MzTabModule, 
-    MzSidenavModule  
+    MzSidenavModule,
+    MzDatepickerModule  
   ],
   entryComponents: [ModalSourcesComponent, ModalLeadComponent, ModalHistoryComponent, ModalQualityComponent],
   bootstrap: [AppComponent],

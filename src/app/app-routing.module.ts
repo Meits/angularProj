@@ -8,6 +8,7 @@ import { ArchivesComponent } from './archives/archives.component';
 import { SourcesComponent } from './sources/sources.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { LoginComponent } from './client/login/login.component';
+import { AnaliticsComponent } from './analitics/analitics.component';
 
 const routes: Routes = [
   {
@@ -45,6 +46,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'analitics',
+    component: AnaliticsComponent
   }
 
 ];

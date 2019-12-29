@@ -8,6 +8,14 @@ import { HttpService } from '../http-service';
   providedIn: 'root'
 })
 export class LeadService  {
+  
+  getAnalitics(dateStart: string, dateEnd: string) {
+    return this.http.post(environment.apiUrl + 'api/admin/analitics', {
+      dateStart : dateStart,
+      dateEnd : dateEnd,
+    })
+  }
+
   getArchiveLeads(page : number) {
     return this.http.get(environment.apiUrl + 'api/admin/leads/archive/index'+"?page=" + page);
   }

@@ -1,3 +1,75 @@
-<p>
-  analitics works!
-</p>
+<div class="container">
+  <div class="flex-block content-between items-center header-group">
+      <h4>Аналитика Лидов</h4>
+  </div>
+
+  <div class="flex-block content-between items-center header-group">
+
+      <div class="row">
+          <div class="input-field col s6">
+
+            <mz-datepicker-container class="col s12">
+              <input mz-datepicker
+                [label]="'Дата от'"
+                [options]="options"
+                [(ngModel)]="dateStart"
+                id="datepicker"
+                placeholder="Select"
+                type="text">
+            </mz-datepicker-container>
+
+          </div>
+          <div class="input-field col s6">
+
+            <mz-datepicker-container class="col s12">
+              <input mz-datepicker
+                [label]="'Дата до'"
+                [options]="options"
+                [(ngModel)]="dateEnd"
+                id="datepicker2"
+                placeholder="Select"
+                type="text">
+            </mz-datepicker-container>
+
+        
+          </div>
+      </div>
+
+  </div>
+
+  <table class="highlight">
+      <thead>
+      <tr>
+          <th class="center" rowspan="2">Менеджер</th>
+          <th  class="center" rowspan="2">Количество лидов</th>
+          <th  class="center" colspan="2">Успешные</th>
+          <th  class="center" colspan="2">Неуспешные</th>
+          <th  class="center" rowspan="2">Скачать</th>
+      </tr>
+      <tr>
+          <th class="center" >Всего</th>
+          <th class="center" >С доп. продажами</th>
+          <th class="center" >Всего</th>
+          <th class="center" >С доп. продажами</th>
+      </tr>
+
+      </thead>
+
+      <tbody>
+      <tr  *ngFor="let data of analiticsData">
+
+          <td class="center" >{{data.firstname}}</td>
+          <td class="center" >{{data.CountLeads}}</td>
+          <td class="center" >{{data.CountQualityLeads}}</td>
+          <td class="center" >{{data.CountQualityAssSaleLeads}}</td>
+          <td class="center" >{{data.CountNotQualityLeads}}</td>
+          <td class="center" >{{data.CountNotQualityAssSaleLeads}}</td>
+          <td class="center" >
+              <a [href]="path + 'admin/analitics/export/' + data.id  +'/' + dateStart + '/' + dateEnd" class="waves-effect waves-light btn amber darken-1">Ссылка</a>
+          </td>
+
+      </tr>
+
+      </tbody>
+  </table>
+</div>
