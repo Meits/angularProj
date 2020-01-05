@@ -1,0 +1,105 @@
+<mz-modal #bottomSources>
+  <mz-modal-header>
+    <h4>Редактирование пользователя</h4>
+  </mz-modal-header>
+  <mz-modal-content>
+      <div class="row">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="col s12">
+              <div class="row">
+                <div class="col s12 m12 l6">
+                  <mz-input-container>
+                      <input 
+                          mz-input
+                          formControlName="firstname" 
+                          [label]="'Имя'"
+                          id="link-input"
+                          [validate]="false"
+                          type="text" 
+                          [ngClass]="{'invalid': f.firstname.errors  && f.firstname.errors.required && f.firstname.touched}"
+                          [dataError]="f.firstname.errors  && f.firstname.errors.required && f.firstname.touched ? 'Имя' : ''"
+
+                      >
+                  
+                  </mz-input-container>    
+              </div>
+              <div class="col s12 m12 l6">
+                <mz-input-container>
+                  <input 
+                      mz-input
+                      formControlName="lastname" 
+                      [label]="'Фамилия'"
+                      id="link-input"
+                      [validate]="false"
+                      type="text" 
+                      [ngClass]="{'invalid': f.lastname.errors  && f.lastname.errors.required && f.lastname.touched}"
+                      [dataError]="f.lastname.errors  && f.lastname.errors.required && f.lastname.touched ? 'Фамилия' : ''"
+
+                  >
+              
+                  </mz-input-container>
+              </div>
+              </div>
+          </form>
+      </div>
+      <div class="row">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="col s12">
+              <div class="row">
+                <div class="col s12 m12 l6">
+                  <mz-input-container>
+                      <input 
+                          mz-input
+                          formControlName="email" 
+                          [label]="'Email'"
+                          id="link-input"
+                          [validate]="false"
+                          type="email" 
+                          [ngClass]="{'invalid': f.email.errors  && f.email.errors.required && f.email.touched}"
+                          [dataError]="f.email.errors  && f.email.errors.required && f.email.touched ? 'Email' : ''"
+
+                      >
+                  
+                  </mz-input-container>    
+              </div>
+              <div class="col s12 m12 l6">
+                <mz-input-container>
+                  <input 
+                      mz-input
+                      formControlName="password" 
+                      [label]="'Пароль'"
+                      id="link-input"
+                      [validate]="false"
+                      type="text" 
+                      [ngClass]="{'invalid': f.password.errors  && f.password.errors.required && f.password.touched}"
+                      [dataError]="f.password.errors  && f.password.errors.required && f.password.touched ? 'Пароль' : ''"
+
+                  >
+              
+                  </mz-input-container>
+              </div>
+              </div>
+
+              <div class="row">
+                <div class="input-field col s12 m12 l6">
+                  <mz-select-container>
+                      <select mz-select formControlName="role_id" >
+                          <option value="" selected>Роль пользователя</option>
+                          <option *ngFor="let role of roles" [value]="role.id" >{{role.title}}</option>
+                      </select>
+                  </mz-select-container>
+  
+                  <label>Роль пользователя</label>
+                  <div class="invalid_custom" *ngIf="f.role_id.errors  && f.role_id.errors.required && f.role_id.touched">Обязательно к заполнению</div>
+                    
+                  </div>
+              </div>
+              <button [disabled]="form.invalid" class="btn waves-effect waves-light" type="submit" name="action">Сохранить
+                <i class="material-icons right">send</i>
+            </button>
+            <button mz-button [flat]="true" mz-modal-close>Отмена</button>
+
+          </form>
+      </div>
+  </mz-modal-content>
+  <mz-modal-footer>
+  </mz-modal-footer>
+</mz-modal>

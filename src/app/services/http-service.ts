@@ -111,7 +111,7 @@ export class HttpService extends Http {
   delete(url: string, options?: RequestOptionsArgs): Observable<any> {
     this.requestInterceptor();
 
-    return super.delete(url, options)
+    return super.delete(url, this.requestOptions(options))
           .pipe(
             catchError(this.onCatch),
             map(res => res.json()),

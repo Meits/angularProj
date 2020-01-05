@@ -7,6 +7,14 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UserService {
+  
+  deleteUser(user: User) {
+    return this.http.delete(environment.apiUrl + 'api/admin/users/' + user.id);
+  }
+  
+  storeUser(user: User) {
+    return this.http.post(environment.apiUrl + 'api/admin/users', user);
+  }
 
   constructor(private http: HttpService) {
     

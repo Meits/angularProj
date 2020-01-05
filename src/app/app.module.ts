@@ -44,6 +44,7 @@ import { ModalTaskHistoryComponent } from './_childComponents/modalRask/modal-ta
 import { TaskArchivesComponent } from './archives/task-archives/task-archives.component';
 import { ModalArchiveTaskHistoryComponent } from './archives/modal-archive-task-history/modal-archive-task-history.component';
 import { ModalArchiveLeadHistoryComponent } from './archives/modal-archive-lead-history/modal-archive-lead-history.component';
+import { ModalUserComponent } from './_childComponents/user/modal-user/modal-user.component';
 
 
 export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestOptions, preloaderService: PreloaderService) {
@@ -79,7 +80,8 @@ export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestO
     ModalTaskHistoryComponent,
     TaskArchivesComponent,
     ModalArchiveTaskHistoryComponent,
-    ModalArchiveLeadHistoryComponent
+    ModalArchiveLeadHistoryComponent,
+    ModalUserComponent
   ],
   imports: [
     
@@ -108,7 +110,7 @@ export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestO
     MzSidenavModule,
     MzDatepickerModule  
   ],
-  entryComponents: [ModalSourcesComponent, ModalLeadComponent, ModalHistoryComponent, ModalQualityComponent, ModalTaskComponent, ModalTaskHistoryComponent, ModalArchiveTaskHistoryComponent, ModalArchiveLeadHistoryComponent],
+  entryComponents: [ModalSourcesComponent, ModalLeadComponent, ModalHistoryComponent, ModalQualityComponent, ModalTaskComponent, ModalTaskHistoryComponent, ModalArchiveTaskHistoryComponent, ModalArchiveLeadHistoryComponent, ModalUserComponent],
   bootstrap: [AppComponent],
   providers : [
     
