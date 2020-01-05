@@ -7,6 +7,14 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class TaskService {
+  
+  
+  getArchiveTasks(page: number) {
+    return this.http.get(environment.apiUrl + 'api/admin/tasks/archive/index'+"?page=" + page);
+  }
+  getTasks() {
+    return this.http.get(environment.apiUrl + 'api/admin/tasks');
+  }
 
   constructor(private http: HttpService) {
     

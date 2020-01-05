@@ -1,0 +1,154 @@
+<div class="dashboard-content" id="index-banner">
+    
+  <div class="container">
+
+          <div class="flex-block content-between items-center header-group">
+                  <button class="waves-effect waves-light btn" mz-button (click)="openSourceModal()">Новая задача</button>
+              </div> 
+
+              <!-- <div class="filters">
+                <mz-checkbox-container>
+                        <input mz-checkbox
+                          [label]="'Задачи, которые поручил я'"
+                          id="meTasks-id"
+                          [(ngModel)]="meTasks"
+                          filledIn="true"
+                          class="filled-in"
+                          type="checkbox">
+                </mz-checkbox-container>
+                <mz-checkbox-container>
+                        <input mz-checkbox
+                          [label]="'Все задачи'"
+                          id="allTasks-id2"
+                          [(ngModel)]="allTasks"
+                          filledIn="true"
+                          class="filled-in"
+                          type="checkbox">
+                </mz-checkbox-container>
+              </div> -->
+
+
+      <div class="row">
+          <owl-carousel 
+              [options]="customOptions"
+              [carouselClasses]="['owl-theme', 'sliding']"
+            >
+            <div class="item col s12 m12 l12">
+                <h4 class="center-align leads-title">Новые задачи</h4>
+
+                <mz-card *ngFor="let task of nTasks; let i = index"
+                      [ngClass]="{'card' : true, 'card-lead' : true, 'blue-grey' : true, 'darken-1' : true, 'white-text' : true, 'blue-grey' : true}"
+                      [horizontal]="true"
+                      [hoverable]="true"
+                      (click)="openHistory($event, task, i, nTasks)"
+                      >
+                      
+                      <mz-card-content class="white-text">
+                          <p class="card-content__comments"><span class="clip">{{task.lastComment}}</span></p>
+
+                          <a
+                                  class="lead-link white-text lighten-3"
+                                  [href]="task.link ? task.link : 'tel:task.phone'"
+                                  [target]=" task.link ? '_blanck' : ''">
+                              {{ task.link ? task.link : task.phone }}
+                          </a>
+                          <div class="flex-block content-between items-center">
+                              <div class="lead__source">
+                                  <span class="lead__source-icon"><svg fill="#fff" width="20px" height="20px" class="" style="border-color: rgb(255, 255, 255);"><use xlink:href="#unit-icon-1"></use></svg></span>
+                                  &nbsp;
+                                  <span class="lead__source-title">{{ task.source_title }}</span>
+                                  
+                              </div>
+ 
+                              <div
+                                  class="lead__unit-title  mac-ua__color"
+                                  
+                                  [style]="{backgroundColor:task.unit_color}"
+                              >{{ task.unit_title }}
+                              </div>
+                          </div>
+                      </mz-card-content>
+                      
+                  </mz-card>
+            </div>
+            <div class="item col s12 m12 l12">
+                <h4 class="center-align leads-title">В работе</h4>
+
+                <mz-card *ngFor="let task of processingTasks; let i = index"
+                      [ngClass]="{'card' : true, 'card-lead' : true, 'blue-grey' : true, 'darken-1' : true, 'white-text' : true,  'blue-grey' : true}"
+                      [horizontal]="true"
+                      [hoverable]="true"
+                      (click)="openHistory($event, task, i, processingTasks )"
+                      >
+                      
+                      <mz-card-content class="white-text">
+                          
+                          <p class="card-content__comments"> <span class="clip">{{task.lastComment}}</span></p>
+
+                          <a
+                                  class="lead-link white-text lighten-3"
+                                  [href]="task.link ? task.link : 'tel:task.phone'"
+                                  [target]=" task.link ? '_blanck' : ''">
+                              {{ task.link ? task.link : task.phone }}
+                          </a>
+                          <div class="flex-block content-between items-center">
+                              <div class="lead__source">
+                                  <span class="lead__source-icon"><svg fill="#fff" width="20px" height="20px" class="" style="border-color: rgb(255, 255, 255);"><use xlink:href="#unit-icon-1"></use></svg></span>
+                                  &nbsp;
+                                  <span class="lead__source-title">{{ task.source_title }}</span>
+                                  
+                              </div>
+                              <div
+                                  class="lead__unit-title  mac-ua__color"
+                                  
+                                  [style]="{backgroundColor:task.unit_color}"
+                              >{{ task.unit_title }}
+                              </div>
+                          </div>
+                      </mz-card-content>
+                      
+                  </mz-card>
+            </div>
+            <div class="item col s12 m12 l12">
+                <h4 class="center-align leads-title">Выполнено</h4>
+
+                <mz-card *ngFor="let task of dTasks; let i = index"
+                      [ngClass]="{'card' : true, 'card-lead' : true,  'darken-1' : true, 'white-text' : true, 'green': true}"
+                      [horizontal]="true"
+                      [hoverable]="true"
+                      (click)="openHistory($event, task, i, dTasks)"
+                      >
+                      
+                      <mz-card-content class="white-text">
+                          <p class="card-content__comments"><span class="clip">{{task.lastComment}}</span></p>
+
+                          <a
+                                  class="lead-link white-text lighten-3"
+                                  [href]="task.link ? task.link : 'tel:task.phone'"
+                                  [target]=" task.link ? '_blanck' : ''">
+                              {{ task.link ? task.link : task.phone }}
+                          </a>
+                          <div class="flex-block content-between items-center">
+                              <div class="lead__source">
+                                  <span class="lead__source-icon"><svg fill="#fff" width="20px" height="20px" class="" style="border-color: rgb(255, 255, 255);"><use xlink:href="#unit-icon-1"></use></svg></span>
+                                  &nbsp;
+                                  <span class="lead__source-title">{{ task.source_title }}</span>
+                                  
+                              </div>
+  
+                              <div
+                                  class="lead__unit-title mac-ua__color"
+                                  
+                                  [style]="{backgroundColor:task.unit_color}"
+                              >{{ task.unit_title }}
+                              </div>
+                          </div>
+                      </mz-card-content>
+                      
+                  </mz-card>
+            </div>
+        </owl-carousel>
+      </div>
+  </div>    
+
+</div>

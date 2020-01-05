@@ -3,6 +3,7 @@ import { LeadService } from '../services/lead/lead.service';
 import { Lead } from '../models/lead';
 import { ModalHistoryComponent } from '../_childComponents/modalLead/modal-history/modal-history.component';
 import { MzModalService } from 'ngx-materialize';
+import { ModalArchiveLeadHistoryComponent } from './modal-archive-lead-history/modal-archive-lead-history.component';
 
 @Component({
   selector: 'app-archives',
@@ -17,7 +18,7 @@ export class ArchivesComponent implements OnInit {
   dleadQuality : boolean= false;
   dleadQualityFalse : boolean= false;
 
-  public modalComponentRef: ComponentRef<ModalHistoryComponent>;
+  public modalComponentRef: ComponentRef<ModalArchiveLeadHistoryComponent>;
 
   constructor(private leadService : LeadService, private modalService: MzModalService,) {
     this.page = 1;
@@ -46,7 +47,7 @@ export class ArchivesComponent implements OnInit {
   }
 
   public openHistory(event, lead : Lead, index : number, leads : Array<Lead>) {
-    this.modalComponentRef = <ComponentRef<ModalHistoryComponent>>this.modalService.open(ModalHistoryComponent,
+    this.modalComponentRef = <ComponentRef<ModalArchiveLeadHistoryComponent>>this.modalService.open(ModalArchiveLeadHistoryComponent,
                   {
                     nLeads : [], 
                     processingLeads : [], 

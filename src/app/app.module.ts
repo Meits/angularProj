@@ -37,6 +37,13 @@ import { ModalQualityComponent } from './_childComponents/modalLead/modal-qualit
 import { ProcessingPipe } from './pipes/lead/processing.pipe';
 import { DonePipe } from './pipes/lead/done.pipe';
 import { AnaliticsComponent } from './analitics/analitics.component';
+import { TasksComponent } from './tasks/tasks.component';
+import { ModalTaskComponent } from './_childComponents/modalTask/modal-task/modal-task.component';
+import { MyTasksPipe } from './pipes/task/my-tasks.pipe';
+import { ModalTaskHistoryComponent } from './_childComponents/modalRask/modal-task-history/modal-task-history.component';
+import { TaskArchivesComponent } from './archives/task-archives/task-archives.component';
+import { ModalArchiveTaskHistoryComponent } from './archives/modal-archive-task-history/modal-archive-task-history.component';
+import { ModalArchiveLeadHistoryComponent } from './archives/modal-archive-lead-history/modal-archive-lead-history.component';
 
 
 export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestOptions, preloaderService: PreloaderService) {
@@ -65,7 +72,14 @@ export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestO
     ModalQualityComponent,
     ProcessingPipe,
     DonePipe,
-    AnaliticsComponent
+    AnaliticsComponent,
+    TasksComponent,
+    ModalTaskComponent,
+    MyTasksPipe,
+    ModalTaskHistoryComponent,
+    TaskArchivesComponent,
+    ModalArchiveTaskHistoryComponent,
+    ModalArchiveLeadHistoryComponent
   ],
   imports: [
     
@@ -94,7 +108,7 @@ export function httpServiceFactory(backend: XHRBackend, defaultOptions: RequestO
     MzSidenavModule,
     MzDatepickerModule  
   ],
-  entryComponents: [ModalSourcesComponent, ModalLeadComponent, ModalHistoryComponent, ModalQualityComponent],
+  entryComponents: [ModalSourcesComponent, ModalLeadComponent, ModalHistoryComponent, ModalQualityComponent, ModalTaskComponent, ModalTaskHistoryComponent, ModalArchiveTaskHistoryComponent, ModalArchiveLeadHistoryComponent],
   bootstrap: [AppComponent],
   providers : [
     

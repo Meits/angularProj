@@ -9,6 +9,8 @@ import { SourcesComponent } from './sources/sources.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { LoginComponent } from './client/login/login.component';
 import { AnaliticsComponent } from './analitics/analitics.component';
+import { TasksComponent } from './tasks/tasks.component';
+import { TaskArchivesComponent } from './archives/task-archives/task-archives.component';
 
 const routes: Routes = [
   {
@@ -50,6 +52,14 @@ const routes: Routes = [
   {
     path: 'analitics',
     component: AnaliticsComponent
+  },
+  {
+    path: 'tasks',
+    component: TasksComponent
+  },
+  {
+    path: 'task_archives',
+    component: TaskArchivesComponent
   }
 
 ];

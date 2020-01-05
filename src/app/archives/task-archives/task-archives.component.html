@@ -1,0 +1,61 @@
+
+<div class="container">
+  <div class="row">
+    
+    <div class="col s12">
+          <h4>Архив лидов</h4>
+    </div>
+  </div>
+  <div class="row">
+  <div class="col s12 m6 l4" *ngFor="let task of tasks; let i = index">
+  
+          <mz-card
+                [ngClass]="{'card' : true, 'card-lead' : true, 'lighten-1' : true, 'white-text' : true, 'green': true}"
+                [horizontal]="true"
+                [hoverable]="true"
+                (click)="openHistory($event, task, i, tasks)"
+                >
+                
+                <mz-card-content class="white-text">
+                    <p class="card-content__comments"> <span class="clip">{{task.lastComment}}</span></p>
+  
+                    <a
+                            class="lead-link white-text lighten-3"
+                            [href]="task.link ? task.link : 'tel:task.phone'"
+                            [target]=" task.link ? '_blanck' : ''">
+                        {{ task.link ? task.link : task.phone }}
+                    </a>
+                    <div class="flex-block content-between items-center">
+                        <div class="lead__source">
+                            <span class="lead__source-icon"><svg fill="#fff" width="20px" height="20px" class="" style="border-color: rgb(255, 255, 255);"><use xlink:href="#unit-icon-1"></use></svg></span>
+                            &nbsp;
+                            <span class="lead__source-title">{{ task.source_title }}</span>
+                            
+                        </div>
+                            
+                        <div
+                            class="lead__unit-title  mac-ua__color"
+                            
+                            [style]="{backgroundColor:task.unit_color}"
+                        >{{ task.unit_title }}
+                        </div>
+                    </div>
+                </mz-card-content>
+                
+            </mz-card>
+      </div>
+  
+  </div>
+  </div>
+        <div class="container center">
+            <div class="row">
+                <div class="col s12">
+                    <button (click)="loadTask()" class="btn waves-effect waves-light btn__end" type="submit" name="action">Загрузить еще
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>                
+        </div>
+  
+    
+  
