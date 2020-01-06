@@ -17,11 +17,11 @@
                     <div class="flex-block content-between">
                         <div>
                             <span class="lead__source-icon"></span>
-                            <span class="lead__source-title">{{task.source_title}}</span>
+                            <span class="lead__source-title"><strong>Источник:</strong> {{task.source_title}}</span>
                         </div>
                         <div
                             class="lead__unit-title"
-                        >{{ task.unit_title }}
+                        ><strong>Подразделение:</strong> {{ task.unit_title }}
                         </div>
                     </div>
 
@@ -38,23 +38,21 @@
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="col s12">
                 <div class="input-field">
                     <mz-select-container>
-                        <select mz-select formControlName="status_id" >
+                        <select mz-select formControlName="status_id" [label]="'Статус'">
                             <option value="" selected>Статус</option>
                             <option *ngFor="let status of statuses" [value]="status.id" >{{status.title}}</option>
                         </select>
                     </mz-select-container>
-                    <label>Статус</label>
+                    
                 </div>
 
                 <div class="input-field" v-if="change_authors">
                         <mz-select-container>
-                            <select mz-select formControlName="responsible_id" >
+                            <select mz-select formControlName="responsible_id" [label]="'Ответственный'">
                                 <option value="" selected>Ответственный</option>
                                 <option *ngFor="let user of users" [value]="user.id" >{{user.firstname}}</option>
                             </select>
                         </mz-select-container>
-        
-                        <label>Автор</label>
                 </div>
 
                 <div class="input-field">

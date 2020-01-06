@@ -1,5 +1,5 @@
 <nav *ngIf="navMenu" class="blue accent-3" role="navigation">
-  <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">Angular CRM</a>
+  <div class="nav-wrapper container"><!--<a id="logo-container" href="/" class="brand-logo">NG CRM</a>-->
       
     <ul class="right hide-on-med-and-down">
           <li *ngFor="let item of navigation"><a class="" [routerLink]="[ item.path ]" >{{item.title}}</a></li>
